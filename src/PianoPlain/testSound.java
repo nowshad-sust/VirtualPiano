@@ -1,6 +1,7 @@
 
 package PianoPlain;
 
+import static java.awt.SystemColor.info;
 import java.io.File;
 import java.io.IOException;
 import javax.sound.sampled.AudioFormat;
@@ -20,17 +21,13 @@ public class testSound {
     private AudioInputStream audioStream;
     private AudioFormat audioFormat;
     private SourceDataLine sourceLine;
-    
+    private DataLine.Info info;
     // now Load & play in different functions
     
     // loadSounds()
         //files names are passed
         //create an array of sourceLine naming each same as the filename
-    // playSounds()
-        //a single filename is received
-        //finds the named file from the array of sourceLine
-        // & play it
-        // then release the memory
+    
     public void LoadSounds(String fileNames[]){
         for (String strFilename : fileNames) {
             try {
@@ -49,8 +46,16 @@ public class testSound {
 
             audioFormat = audioStream.getFormat();
 
-            DataLine.Info info = new DataLine.Info(SourceDataLine.class, audioFormat);
-            try {
+            info = new DataLine.Info(SourceDataLine.class, audioFormat);
+        }
+    }
+    // playSounds()
+        //a single filename is received
+        //finds the named file from the array of sourceLine
+        // & play it
+        // then release the memory
+    public void playSounds(String filename){
+        try {
                 sourceLine = (SourceDataLine) AudioSystem.getLine(info);
                 sourceLine.open(audioFormat);
             } catch (LineUnavailableException e) {
@@ -60,7 +65,6 @@ public class testSound {
                 e.printStackTrace();
                 System.exit(1);
             }
-        }
     }
     public void playSound(String filename){
 
