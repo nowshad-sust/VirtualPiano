@@ -133,6 +133,7 @@ public class testSound {
                     }
 
                     sourceLine.drain();
+                    sourceLine.close();
                     break;
             }
             
@@ -199,6 +200,8 @@ public class testSound {
         String[] soundList = {"src//wav//a.wav", "src//wav//b.wav", "src//wav//c.wav"};
         ts.LoadSounds(soundList);
         ts.playSounds("src//wav//c.wav");
+        ts.playSounds("src//wav//a.wav");
+        ts.playSounds("src//wav//b.wav");
     }
     
 }

@@ -20,6 +20,8 @@ public class NewJFrame extends javax.swing.JFrame{
     
     public NewJFrame() {
         initComponents();
+        String[] soundList = {"src//wav//a.wav", "src//wav//b.wav", "src//wav//c.wav"};
+        LoadSounds(soundList);
         
     }
     
@@ -62,44 +64,12 @@ public class NewJFrame extends javax.swing.JFrame{
     public void Play(String filename)
 	{
             try{
-                playSounds("src\\PianoPlain\\wav\\"+filename);
+                playSounds(filename);
             } catch(Exception e){
                 System.out.println("exception in play()");
             }            
 	}
     
-    public static void LoadSound() throws IOException{
-       Files.walk(Paths.get("//wav//")).forEach(filePath -> {
-            if (Files.isRegularFile(filePath)) {
-                System.out.println(filePath);
-            }
-        });
-    }
-    
-    /*    AudioInputStream audioIn = null;
-        URL url;
-        Clip clip = null;
-    public void PlaySound(String filename) {
-      
-      try {
-         // Open an audio input stream.
-         url = this.getClass().getClassLoader().getResource(filename);
-         audioIn = AudioSystem.getAudioInputStream(url);
-         // Get a sound clip resource.
-         clip = AudioSystem.getClip();
-         // Open audio clip and load samples from the audio input stream.
-         clip.open(audioIn);
-         clip.start();
-      } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
-      }finally{
-        try{
-            audioIn.close();
-            //clip.close();
-        }catch(Exception ex){
-        System.out.println("not closed");
-            }
-        }
-   }*/
     private final int BUFFER_SIZE = 128000;
     private File soundFile;
     private AudioInputStream audioStream;
@@ -110,15 +80,7 @@ public class NewJFrame extends javax.swing.JFrame{
     //private ArrayList<DataLine.Info> info;
     private final AudioFormat[] audioFormat = new AudioFormat[3];
     private final DataLine.Info[]  info= new DataLine.Info[3];
-    // now Load & play in different functions
-    
-    // loadSounds()
-        //files names are passed
-        //create an array of sourceLine naming each same as the filename
-        //details
-            //an array of filenames are passed as parameter
-            //load all files differently
-    
+        
     public void LoadSounds(String fileNames[]){
         for (String strFilename : fileNames) {
             try {
@@ -152,15 +114,12 @@ public class NewJFrame extends javax.swing.JFrame{
         }
         System.out.println("Sound Files Loaded");
     }
-    // playSounds()
-        //a single filename is received
-        //finds the named file from the array of sourceLine
-        // & play it
-        // then release the memory
     public void playSounds(String strFilename){
         try {
+                System.out.println("playSounds called with "+strFilename);
                 if(null != strFilename)switch (strFilename) {
-                case "src//wav//a.wav":
+                case "a.wav":
+                    System.out.println("playing a");
                     sourceLine = (SourceDataLine) AudioSystem.getLine(info[0]);
                     sourceLine.open(audioFormat[0]);
                     sourceLine.start();
@@ -178,8 +137,10 @@ public class NewJFrame extends javax.swing.JFrame{
                     }
 
                     sourceLine.drain();
+                    sourceLine.close();
                     break;
-                case "src//wav//b.wav":
+                case "b.wav":
+                    System.out.println("playing b");
                     sourceLine = (SourceDataLine) AudioSystem.getLine(info[1]);
                     sourceLine.open(audioFormat[1]);
                     sourceLine.start();
@@ -197,9 +158,10 @@ public class NewJFrame extends javax.swing.JFrame{
                     }
 
                     sourceLine.drain();
+                    sourceLine.close();
                     break;
-                case "src//wav//c.wav":
-                    System.out.println("Playing c");
+                case "c.wav":
+                    System.out.println("playing c");
                     sourceLine = (SourceDataLine) AudioSystem.getLine(info[2]);
                     sourceLine.open(audioFormat[2]);
                     sourceLine.start();
@@ -291,8 +253,8 @@ public class NewJFrame extends javax.swing.JFrame{
         
         try{
             
-            String keyFileName = DetectKey(evt);
-                //System.out.println("Thread: " + getName() + " running");
+                String keyFileName = DetectKey(evt);
+                System.out.println("key pressed "+evt.getKeyChar() + " file name " + keyFileName);
                 Play(keyFileName);
        }catch(Exception e){
            System.out.println("Exception in creating Thread");
@@ -302,7 +264,7 @@ public class NewJFrame extends javax.swing.JFrame{
 
     private void formKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyReleased
         System.out.println("key releassed "+evt.getKeyChar());
-        String keyFileName = evt.getKeyChar()+".wav";
+        //String keyFileName = evt.getKeyChar()+".wav";
     }//GEN-LAST:event_formKeyReleased
 
     /**
@@ -331,9 +293,7 @@ public class NewJFrame extends javax.swing.JFrame{
             java.util.logging.Logger.getLogger(NewJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-            testSound ts = new testSound();
-            String[] soundList = {"src//wav//a.wav", "src//wav//b.wav", "src//wav//c.wav"};
-            ts.LoadSounds(soundList);
+            //NewJFrame ts = new NewJFrame();
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
             new NewJFrame().setVisible(true);
