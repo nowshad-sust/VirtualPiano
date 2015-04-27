@@ -27,6 +27,9 @@ public class testSound {
     // loadSounds()
         //files names are passed
         //create an array of sourceLine naming each same as the filename
+        //details
+            //an array of filenames are passed as parameter
+            //load all files differently
     
     public void LoadSounds(String fileNames[]){
         for (String strFilename : fileNames) {
