@@ -1,4 +1,3 @@
-//text format is not correct when opened with notepad
 package PianoPlain;
 //import .*;
 import java.io.File;
