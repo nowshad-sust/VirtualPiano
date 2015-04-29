@@ -1,15 +1,22 @@
-
 package PianoPlain;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.sound.sampled.DataLine;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.SourceDataLine;
 import javax.sound.sampled.UnsupportedAudioFileException;
+import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
+import sun.applet.Main;
+import sun.audio.AudioPlayer;
+import sun.audio.AudioStream;
 
 /**
  *
@@ -18,9 +25,12 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 public class testSound {
     private final int BUFFER_SIZE = 128000;
     private File soundFile;
+    private File soundFile1;
     private AudioInputStream audioStream;
+    private AudioInputStream audioStream1;
     //private AudioFormat audioFormat;
     private SourceDataLine sourceLine;
+    private SourceDataLine sourceLine1;
     //private DataLine.Info info;
     //private ArrayList<AudioFormat> audioFormat;
     //private ArrayList<DataLine.Info> info;
@@ -34,10 +44,32 @@ public class testSound {
         //details
             //an array of filenames are passed as parameter
             //load all files differently
+    public void LoadSound(){
+        try {
+                System.out.println("Loading: a");
+                soundFile = new File("src//wav//a.wav");
+                System.out.println("Loading: b");
+                soundFile1 = new File("src//wav//b.wav");
+            } catch (Exception e) {
+                System.exit(1);
+            }
+
+            try {
+                audioStream = AudioSystem.getAudioInputStream(soundFile);
+                audioStream1 = AudioSystem.getAudioInputStream(soundFile1);
+            } catch (UnsupportedAudioFileException | IOException e){
+                System.exit(1);
+            }
+                    audioFormat[0] = audioStream.getFormat();
+                    info[0] = new DataLine.Info(SourceDataLine.class, audioFormat[1]);
+                    audioFormat[1] = audioStream1.getFormat();
+                    info[1] = new DataLine.Info(SourceDataLine.class, audioFormat[1]);   
+            }
     
-    public void LoadSounds(String fileNames[]){
+    /*public void LoadSounds(String fileNames[]){
         for (String strFilename : fileNames) {
             try {
+                System.out.println("Loading: " + strFilename );
                 soundFile = new File(strFilename);
             } catch (Exception e) {
                 System.exit(1);
@@ -52,22 +84,27 @@ public class testSound {
                 case "src//wav//a.wav":
                     audioFormat[0] = audioStream.getFormat();
                     info[0] = new DataLine.Info(SourceDataLine.class, audioFormat[1]);
-                    System.out.println(audioFormat[0] + " " + info[0]);
+                    //System.out.println(audioFormat[0] + " " + info[0]);
                     break;
                 case "src//wav//b.wav":
                     audioFormat[1] = audioStream.getFormat();
                     info[1] = new DataLine.Info(SourceDataLine.class, audioFormat[1]);
-                    System.out.println(audioFormat[0] + " " + info[0]);
+                    //System.out.println(audioFormat[0] + " " + info[0]);
                     break;
                 case "src//wav//c.wav":
                     audioFormat[2] = audioStream.getFormat();
                     info[2] = new DataLine.Info(SourceDataLine.class, audioFormat[1]);
-                    System.out.println(audioFormat[0] + " " + info[0]);
+                    //System.out.println(audioFormat[0] + " " + info[0]);
                     break;
+                
             }
+            System.out.println("Loaded " + strFilename );
         }
         System.out.println("Sound Files Loaded");
-    }
+        for (int i=0;i<3;i++) {
+            System.out.println(audioFormat[i] + " " + info[i]);
+        }
+    }*/
     // playSounds()
         //a single filename is received
         //finds the named file from the array of sourceLine
@@ -94,6 +131,7 @@ public class testSound {
                     }
 
                     sourceLine.drain();
+                    sourceLine.close();
                     break;
                 case "src//wav//b.wav":
                     sourceLine = (SourceDataLine) AudioSystem.getLine(info[1]);
@@ -113,6 +151,7 @@ public class testSound {
                     }
 
                     sourceLine.drain();
+                    sourceLine.close();
                     break;
                 case "src//wav//c.wav":
                     System.out.println("Playing c");
@@ -144,64 +183,14 @@ public class testSound {
                 System.exit(1);
             }
     }
-    /*
-    public void playSound(String filename){
-
-        String strFilename = filename;
-
-        try {
-            soundFile = new File(strFilename);
-        } catch (Exception e) {
-            System.exit(1);
-        }
-
-        try {
-            audioStream = AudioSystem.getAudioInputStream(soundFile);
-        } catch (UnsupportedAudioFileException | IOException e){
-            System.exit(1);
-        }
-
-        audioFormat = audioStream.getFormat();
-
-        DataLine.Info info = new DataLine.Info(SourceDataLine.class, audioFormat);
-        try {
-            sourceLine = (SourceDataLine) AudioSystem.getLine(info);
-            sourceLine.open(audioFormat);
-        } catch (LineUnavailableException e) {
-            e.printStackTrace();
-            System.exit(1);
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.exit(1);
-        }
-
-        sourceLine.start();
-
-        int nBytesRead = 0;
-        byte[] abData = new byte[BUFFER_SIZE];
-        while (nBytesRead != -1) {
-            try {
-                nBytesRead = audioStream.read(abData, 0, abData.length);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            if (nBytesRead >= 0) {
-                @SuppressWarnings("unused")
-                int nBytesWritten = sourceLine.write(abData, 0, nBytesRead);
-            }
-        }
-
-        sourceLine.drain();
-        sourceLine.close();
-    }
-    */
-    public static void main(String args[]){
+    
+    public static void main(String args[]) throws Exception{
         testSound ts = new testSound();
         String[] soundList = {"src//wav//a.wav", "src//wav//b.wav", "src//wav//c.wav"};
-        ts.LoadSounds(soundList);
-        ts.playSounds("src//wav//c.wav");
+        ts.LoadSound();
         ts.playSounds("src//wav//a.wav");
         ts.playSounds("src//wav//b.wav");
+        //ts.playSounds("src//wav//b.wav");
     }
     
 }
