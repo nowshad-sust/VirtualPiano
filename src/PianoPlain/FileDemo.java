@@ -1,6 +1,5 @@
 package PianoPlain;
 
-//package com.tutorialspoint;
 
 import java.io.File;
 import java.io.IOException;
