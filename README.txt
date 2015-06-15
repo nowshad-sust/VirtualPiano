@@ -8,5 +8,5 @@ State: Under construction
 
 Running the application
 1. Run NewJFrame.java
-2. play with keyboard
-3. have fun
+2. Play with keyboard
+3. Have fun
