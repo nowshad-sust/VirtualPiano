@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package PianoPlain;
 
 import java.awt.Color;
@@ -158,8 +159,7 @@ public class PianoGUI extends JFrame implements ActionListener, KeyListener{
 		
             Runnable playNotes = new Runnable(){
                          public void run() {
-                             playSound(e);
-                            /*
+                            
                              // Initialize
                             String command = null;
                             String name = "";
@@ -167,27 +167,26 @@ public class PianoGUI extends JFrame implements ActionListener, KeyListener{
                            // Cast the object to a JButton
                             final JButton jb = (JButton)obj;
                             name = jb.getName();
+                             System.out.println("name: "+ name);
+                            //final String actionCommand;
+                            //actionCommand = jb.getActionCommand();
+		            //player.play(actionCommand);
+                            player.play(name);
                             
-                            final String actionCommand;
-                            actionCommand = jb.getActionCommand();
-		            player.play(actionCommand);
-                            */
                             }
 		         };
 		 	(new Thread(playNotes)).start();		
                     }
         
-        public void playSound(ActionEvent e){
-                            String command = null;
-                            String name = "";
-                            Object obj = e.getSource();
-                           // Cast the object to a JButton
-                            final JButton jb = (JButton)obj;
-                            name = jb.getName();
-                            System.out.println("name: "+name);
-                            final String actionCommand;
-                            actionCommand = jb.getActionCommand();
-		            player.play(actionCommand);
+        public void playSound(String key){
+            Runnable playNotes = new Runnable(){
+                         public void run() {
+                            player.play(key);
+                            
+                            }
+		         };
+		 	(new Thread(playNotes)).start();
+		            
         }
 
     @Override
@@ -197,17 +196,86 @@ public class PianoGUI extends JFrame implements ActionListener, KeyListener{
 
     @Override
     public void keyPressed(KeyEvent e) {
-        System.out.println("Pressed: "+e.getKeyChar());
-       // playSound((ActionEvent)e);
+        //System.out.println("Pressed: "+e.getKeyChar());
+        generateNotes(e);
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
         
     }
-        
-        
-
     
-    
+    public void generateNotes(KeyEvent e){
+        char keyPressed = e.getKeyChar();
+        System.out.println("Pressed: "+keyPressed);
+        
+        switch(keyPressed){
+            case 'q':
+                playSound("C4");
+                break;
+            case 'w':
+                playSound("D4");
+                break;
+            case 'e':
+                playSound("E4");
+                break;
+            case 'r':
+                playSound("C4");
+                break;
+            case 't':
+                playSound("D4");
+                break;
+            case 'y':
+                playSound("E4");
+                break;
+            case 'u':
+                playSound("C4");
+                break;
+            case 'a':
+                playSound("D5");
+                break;
+            case 's':
+                playSound("E5");
+                break;
+            case 'd':
+                playSound("C5");
+                break;
+            case 'f':
+                playSound("D5");
+                break;
+            case 'g':
+                playSound("E5");
+                break;
+            case 'h':
+                playSound("C5");
+                break;
+            case 'j':
+                playSound("D5");
+                break;
+            case 'z':
+                playSound("E6");
+                break;
+            case 'x':
+                playSound("C6");
+                break;
+            case 'c':
+                playSound("D6");
+                break;
+            case 'v':
+                playSound("E6");
+                break;
+            case 'b':
+                playSound("E6");
+                break;
+            case 'n':
+                playSound("C6");
+                break;
+            case 'm':
+                playSound("D6");
+                break;
+            
+        }
+        
+    }
+           
 }
