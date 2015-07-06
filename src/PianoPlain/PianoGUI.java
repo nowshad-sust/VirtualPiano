@@ -175,7 +175,7 @@ public class PianoGUI extends JFrame implements ActionListener, KeyListener{
                             
                             }
 		         };
-		 	(new Thread(playNotes)).start();		
+		 	(new Thread(playNotes)).start();
                     }
         
         public void playSound(String key){
@@ -220,58 +220,58 @@ public class PianoGUI extends JFrame implements ActionListener, KeyListener{
                 playSound("E4");
                 break;
             case 'r':
-                playSound("C4");
+                playSound("F4");
                 break;
             case 't':
-                playSound("D4");
+                playSound("G4");
                 break;
             case 'y':
-                playSound("E4");
+                playSound("A4");
                 break;
             case 'u':
-                playSound("C4");
+                playSound("B4");
                 break;
             case 'a':
-                playSound("D5");
+                playSound("C5");
                 break;
             case 's':
-                playSound("E5");
+                playSound("D5");
                 break;
             case 'd':
-                playSound("C5");
-                break;
-            case 'f':
-                playSound("D5");
-                break;
-            case 'g':
                 playSound("E5");
                 break;
+            case 'f':
+                playSound("F5");
+                break;
+            case 'g':
+                playSound("G5");
+                break;
             case 'h':
-                playSound("C5");
+                playSound("A5");
                 break;
             case 'j':
-                playSound("D5");
+                playSound("B5");
                 break;
             case 'z':
-                playSound("E6");
+                playSound("C6");
                 break;
             case 'x':
-                playSound("C6");
+                playSound("D6");
                 break;
             case 'c':
-                playSound("D6");
+                playSound("E6");
                 break;
             case 'v':
-                playSound("E6");
+                playSound("F6");
                 break;
             case 'b':
-                playSound("E6");
+                playSound("G6");
                 break;
             case 'n':
-                playSound("C6");
+                playSound("A6");
                 break;
             case 'm':
-                playSound("D6");
+                playSound("B6");
                 break;
             
         }
