@@ -1,0 +1,25 @@
+This is a file for development plan & progress
+only for the use of developer
+
+*extension are optional features depends on time
+
+current state:
+    keyboard response & mouse response is fine
+    only one unknown exception happens
+    but keyboard does not work after mouse click
+    blank GUI except the keys
+
+final planning
+    adding a nice GUI
+    key press & key release effect
+    debug problems [2 found]
+    add a menu
+    menu will be added above the area of the keyboard
+    best is to make a tabbed menu
+    Menu[tabs]
+        currently playing key[default tab]
+            show the note playing
+        Credits
+        extension:effects [just change the tune of notes]
+    add an icon
+    extension: recording option
