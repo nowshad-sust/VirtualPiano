@@ -27,14 +27,20 @@ import org.jfugue.player.Player;
  */
 
 public class PianoGUI extends JFrame implements ActionListener, KeyListener{
+    //main JFrame
     private JFrame frame;
+    //key notes to repeat
     private String[] notes = {"C","D","E","F","G","A","B"};
+    //dhsrp notes
     private String[] sharps = {"C#","D#","F#","G#","A#"};
+    //octaves : 3vhere
     private String[] octave = {"4","5","6"};
     
+    //creating a player object to play notes
     private Player player = new Player();
     
     
+    //constructor
     public PianoGUI(){
         frame = new JFrame("VirtualPiano");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -50,7 +56,7 @@ public class PianoGUI extends JFrame implements ActionListener, KeyListener{
         mainPanel.add(Box.createRigidArea(new Dimension(0,10)));
         
         
-        
+        //making & adding the keyboard
         JLayeredPane pianoKeyPanel = makeKeyboard();
         
         mainPanel.add(pianoKeyPanel);
@@ -62,16 +68,17 @@ public class PianoGUI extends JFrame implements ActionListener, KeyListener{
         frame.setSize(900,400);
     }
     
+    //function to generate the keyboard
     public JLayeredPane makeKeyboard(){
         
         String name = "";
 	int x = 55;
-        int y = 180;
+        int y = 150;
         
         JLayeredPane keyboard = new JLayeredPane();
         keyboard.setPreferredSize(new Dimension(900,162));
         keyboard.add(Box.createRigidArea(new Dimension(x, 0)));
-        
+        //adding the white keys
         for(int i=0;i<octave.length;++i){
             for(int j=0;j<notes.length;++j){
                 ImageIcon img = new ImageIcon("images/"+notes[j]+".png");
@@ -81,7 +88,7 @@ public class PianoGUI extends JFrame implements ActionListener, KeyListener{
         		jb.setName(name);
         		jb.setActionCommand(name);
         		jb.addActionListener(this);
-        		jb.setBounds(x,y,35,162);
+        		jb.setBounds(x,y,35,207);
         		keyboard.add(jb,new Integer(1));
         		keyboard.add(Box.createRigidArea(new Dimension(2, 0)));
         		x += 37;
@@ -128,19 +135,19 @@ public class PianoGUI extends JFrame implements ActionListener, KeyListener{
     		jb4.addActionListener(this);
     		
     		// Place the 5 keys 
-    		jb0.setBounds(77+(260*i),y,25,95);
+    		jb0.setBounds(77+(260*i),y-1,25,115);
     		keyboard.add(jb0,new Integer(2));
     		
-    		jb1.setBounds(115+(260*i),y,25,95);
+    		jb1.setBounds(115+(260*i),y-1,25,115);
     		keyboard.add(jb1,new Integer(2));
     		
-    		jb2.setBounds(188+(260*i),y,25,95);
+    		jb2.setBounds(188+(260*i),y-1,25,115);
     		keyboard.add(jb2,new Integer(2));
         	
-    		jb3.setBounds(226+(260*i),y,25,95);
+    		jb3.setBounds(226+(260*i),y-1,25,115);
     		keyboard.add(jb3,new Integer(2));
    
-    		jb4.setBounds(264+(260*i),y,25,95);
+    		jb4.setBounds(264+(260*i),y-1,25,115);
     		keyboard.add(jb4,new Integer(2));
         }
         
@@ -153,7 +160,7 @@ public class PianoGUI extends JFrame implements ActionListener, KeyListener{
         new PianoGUI();
     }
 
-
+    //mouse event handler
     @Override
 	public void actionPerformed(ActionEvent e) {
 		
@@ -172,7 +179,8 @@ public class PianoGUI extends JFrame implements ActionListener, KeyListener{
                             //actionCommand = jb.getActionCommand();
 		            //player.play(actionCommand);
                             try{
-                             player.play(name);
+                                //trying to play the note
+                                player.play(name);
                             }catch(Exception e){
                                 System.out.println("Exception with "+ name);
                                 //retrying to play
@@ -184,11 +192,14 @@ public class PianoGUI extends JFrame implements ActionListener, KeyListener{
 		 	(new Thread(playNotes)).start();
                     }
         
+        
+        //function to call for keyboard events
         public void playSound(String key){
             Runnable playNotes = new Runnable(){
                          public void run() {
                             try{
-                             player.play(key);
+                                //trying to play note
+                                player.play(key);
                             }catch(Exception e){
                                 System.out.println("Exception with "+ key);
                                 //retrying to play
@@ -218,6 +229,9 @@ public class PianoGUI extends JFrame implements ActionListener, KeyListener{
         
     }
     
+    //method to determine which note to play
+    //with corresponding key event
+    //incomplete: black keys still left
     public void generateNotes(KeyEvent e){
         char keyPressed = e.getKeyChar();
         System.out.println("Pressed: "+keyPressed);
