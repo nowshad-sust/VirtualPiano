@@ -171,7 +171,13 @@ public class PianoGUI extends JFrame implements ActionListener, KeyListener{
                             //final String actionCommand;
                             //actionCommand = jb.getActionCommand();
 		            //player.play(actionCommand);
-                            player.play(name);
+                            try{
+                             player.play(name);
+                            }catch(Exception e){
+                                System.out.println("Exception with "+ name);
+                                //retrying to play
+                                player.play(name);
+                            }
                             
                             }
 		         };
@@ -181,7 +187,14 @@ public class PianoGUI extends JFrame implements ActionListener, KeyListener{
         public void playSound(String key){
             Runnable playNotes = new Runnable(){
                          public void run() {
-                            player.play(key);
+                            try{
+                             player.play(key);
+                            }catch(Exception e){
+                                System.out.println("Exception with "+ key);
+                                //retrying to play
+                                player.play(key);
+                            }
+                             
                             
                             }
 		         };
