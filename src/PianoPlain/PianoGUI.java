@@ -78,6 +78,7 @@ public class PianoGUI extends JFrame implements ActionListener, KeyListener{
         JLayeredPane keyboard = new JLayeredPane();
         keyboard.setPreferredSize(new Dimension(900,162));
         keyboard.add(Box.createRigidArea(new Dimension(x, 0)));
+        keyboard.setFocusable(false);
         //adding the white keys
         for(int i=0;i<octave.length;++i){
             for(int j=0;j<notes.length;++j){
@@ -89,8 +90,10 @@ public class PianoGUI extends JFrame implements ActionListener, KeyListener{
         		jb.setActionCommand(name);
         		jb.addActionListener(this);
         		jb.setBounds(x,y,35,207);
-        		keyboard.add(jb,new Integer(1));
+        		jb.setFocusable(false);
+                        keyboard.add(jb,new Integer(1));
         		keyboard.add(Box.createRigidArea(new Dimension(2, 0)));
+                        
         		x += 37;
             }
         }
@@ -109,31 +112,37 @@ public class PianoGUI extends JFrame implements ActionListener, KeyListener{
     		jb0.setName(name);
     		jb0.setActionCommand(name);
     		jb0.addActionListener(this);
+                jb0.setFocusable(false);
+
     		
     		JButton jb1 = new JButton(img);
     		name = sharps[1]+octave[i];
     		jb1.setName(name);
     		jb1.setActionCommand(name);
     		jb1.addActionListener(this);
-    		
+    		jb1.setFocusable(false);
+                
     		JButton jb2 = new JButton(img);
     		name = sharps[2]+octave[i];
     		jb2.setName(name);
     		jb2.setActionCommand(name);
     		jb2.addActionListener(this);
-    		
+    		jb2.setFocusable(false);
+                
     		JButton jb3 = new JButton(img);
     		name = sharps[3]+octave[i];
     		jb3.setName(name);
     		jb3.setActionCommand(name);
     		jb3.addActionListener(this);
-    		
+    		jb3.setFocusable(false);
+                
     		JButton jb4 = new JButton(img);
     		name = sharps[4]+octave[i];
     		jb4.setName(name);
     		jb4.setActionCommand(name);
     		jb4.addActionListener(this);
-    		
+    		jb4.setFocusable(false);
+                
     		// Place the 5 keys 
     		jb0.setBounds(77+(260*i),y-1,25,115);
     		keyboard.add(jb0,new Integer(2));
