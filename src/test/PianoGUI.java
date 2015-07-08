@@ -8,6 +8,7 @@ package test;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -24,8 +25,11 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
+import javax.swing.JSeparator;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextPane;
+import javax.swing.SwingConstants;
+import javax.swing.UIManager;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.text.BadLocationException;
@@ -56,19 +60,18 @@ public class PianoGUI extends JFrame implements ActionListener, KeyListener{
     
     private JLabel currentlyPlayingLabel = new JLabel();
     
-    private String currentlyPlayingNote;
     
-    private static String message = "In the beginning, there was COBOL, then there was FORTRAN, "
-      + "then there was BASIC, ... and now there is Java.\n";
     //constructor
     public PianoGUI() throws BadLocationException{
-        
+        //Main JFrame
         frame = new JFrame("VirtualPiano");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
         frame.setFocusable(true);
         
         frame.addKeyListener(this);
         
+        //main Conatainer MainPanel
         
         Container mainPanel = frame.getContentPane();
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
@@ -81,15 +84,17 @@ public class PianoGUI extends JFrame implements ActionListener, KeyListener{
         
         JPanel topPanel = new JPanel();
         topPanel.setLayout(new BoxLayout(topPanel, BoxLayout.X_AXIS));
+        topPanel.setBackground(Color.BLACK);
+        topPanel.setPreferredSize(new Dimension(600,50));
       
-        //logo area
+        //logo area/ "Virtual Piano" - title area
         
         JPanel leftPanel = new JPanel();
-        leftPanel.setBackground(Color.red);
+        leftPanel.setBackground(Color.BLACK);
         JLabel leftLabel = new JLabel();
-        leftLabel.setText("Left Panel");
+        leftLabel.setText("<html><h1>Virtual<br>Piano</h1></html>");
         leftPanel.add(leftLabel);
-        leftPanel.setMaximumSize(new Dimension(10,170));
+        
         
         topPanel.add(leftPanel);
         
@@ -97,43 +102,70 @@ public class PianoGUI extends JFrame implements ActionListener, KeyListener{
         //tabbed menu starts
         
         JTabbedPane jtp = new JTabbedPane();
-        
-        JPanel jp1 = new JPanel();
-        JPanel jp2 = new JPanel();
-        jp1.setLayout(new BoxLayout(jp1, BoxLayout.Y_AXIS));
-        //jp1.setLocation(200, 50);
-        JPanel jp3 = new JPanel();
-        JLabel label1 = new JLabel();
-        
-        //label1.setText("<html>Currently Playing: <br> </html>");
-        label1.setText("<html><h2>Currently Playing: </h2><br></html>");
-//        label1.getParent().revalidate();
-        
-        JLabel label2 = new JLabel();
-        label2.setText("You are in area of Tab2");
-        jp1.add(label1);
-        jp1.add(currentlyPlayingLabel);
-        
-        jp2.add(label2);
-        jtp.addTab("Playing", jp1);
-        jtp.addTab("Credits", jp2);
-        jtp.addTab("Manual", jp3);
-        
         jtp.setBackground(Color.LIGHT_GRAY);
         
-        topPanel.add(jtp);
-        mainPanel.add(topPanel);
+        //1st tab -> CurrentlyPlayingPanel
+        
+        JPanel CurrentlyPlayingPanel = new JPanel();
+        
+        CurrentlyPlayingPanel.setLayout(new BoxLayout(CurrentlyPlayingPanel, BoxLayout.Y_AXIS));
+        CurrentlyPlayingPanel.setBackground(Color.BLACK);
+        
+        JLabel label1 = new JLabel();
+        label1.setText("<html><h2>Currently Playing Note</h2></html>");
+        
+        CurrentlyPlayingPanel.add(label1);
+        CurrentlyPlayingPanel.add(currentlyPlayingLabel);
+        
+        //2nd tab -> CreditsPanel
+        JPanel creditsPanel = new JPanel();
+        creditsPanel.setBackground(Color.BLACK);
+        JLabel label2 = new JLabel();
+        //credits text
+        label2.setText("<html>Md. Al-amin Nowshad"
+                + "<br>Batch: 2012,"
+                + "<br>Dept. of Computer Science & Engineering,"
+                + "<br>ShahJalal University of Science & Technology"
+                + "<br>email: iamnowshad@gmail.com</html>");
+        
+        creditsPanel.add(label2);
+        
+        //3rd tab -> helpPanel
+        JPanel helpPanel = new JPanel();
+        helpPanel.setBackground(Color.BLACK);
+        
+        
+        //adding tabs to main JTabbedPane
+        jtp.addTab("Playing", CurrentlyPlayingPanel);
+        jtp.addTab("Credits", creditsPanel);
+        jtp.addTab("Help", helpPanel);
+        
         //tabbed menu ends
+     
+        //adding JTabbedPane to topPanel
+        topPanel.add(jtp);
         
-        //end of menu
         
+        
+        //right Panel
+        JPanel rightPanel = new JPanel();
+        rightPanel.setBackground(Color.BLACK);
+        JLabel rightLabel = new JLabel();
+        rightLabel.setText("<html><h1>Right<br>Panel</h1></html>");
+        rightPanel.add(rightLabel);
+        
+        
+        topPanel.add(rightPanel);
+        
+        
+        //top panel finished
+        
+        mainPanel.add(topPanel);
         
         //making & adding the keyboard
         JLayeredPane pianoKeyPanel = makeKeyboard();
         
         mainPanel.add(pianoKeyPanel);
-        
-        
         
         frame.setVisible(true);
         frame.setResizable(false);
@@ -248,19 +280,14 @@ public class PianoGUI extends JFrame implements ActionListener, KeyListener{
             Runnable playNotes = new Runnable(){
                          public void run() {
                             
-                             // Initialize
-                            String command = null;
                             String key = "";
                             Object obj = e.getSource();
-                           // Cast the object to a JButton
+                            // Cast the object to a JButton
                             final JButton jb = (JButton)obj;
                             key = jb.getName();
-                             System.out.println("name: "+ key);
-                            //final String actionCommand;
-                            //actionCommand = jb.getActionCommand();
-		            //player.play(actionCommand);
                             try{
-                                currentlyPlayingLabel.setText("<html>"+key+"</html>");
+                                //print the currently playing note
+                                currentlyPlayingLabel.setText("<html><br><h1>"+key+"</h1></html>");
                                 //trying to play the note
                                 player.play(key);
                             }catch(Exception e){
@@ -280,7 +307,8 @@ public class PianoGUI extends JFrame implements ActionListener, KeyListener{
             Runnable playNotes = new Runnable(){
                          public void run() {
                             try{
-                                currentlyPlayingLabel.setText("<html>"+key+"</html>");
+                                //print the currently playing note
+                                currentlyPlayingLabel.setText("<html><h1>"+key+"</h1></html>");
                                 //trying to play note
                                 player.play(key);
                             }catch(Exception e){
@@ -303,7 +331,7 @@ public class PianoGUI extends JFrame implements ActionListener, KeyListener{
 
     @Override
     public void keyPressed(KeyEvent e) {
-        //System.out.println("Pressed: "+e.getKeyChar());
+        //calling keyboard key response function
         generateNotes(e);
     }
 
