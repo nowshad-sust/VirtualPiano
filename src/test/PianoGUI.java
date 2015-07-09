@@ -101,8 +101,8 @@ public class PianoGUI extends JFrame implements ActionListener, KeyListener{
         
         //tabbed menu starts
         
-        JTabbedPane jtp = new JTabbedPane();
-        jtp.setBackground(Color.LIGHT_GRAY);
+        JTabbedPane tabbedMenuPanel = new JTabbedPane();
+        tabbedMenuPanel.setBackground(Color.LIGHT_GRAY);
         
         //1st tab -> CurrentlyPlayingPanel
         
@@ -133,17 +133,20 @@ public class PianoGUI extends JFrame implements ActionListener, KeyListener{
         //3rd tab -> helpPanel
         JPanel helpPanel = new JPanel();
         helpPanel.setBackground(Color.BLACK);
-        
+        JLabel helpLabel = new JLabel("watch the keymap to play");
+        helpPanel.add(helpLabel);
         
         //adding tabs to main JTabbedPane
-        jtp.addTab("Playing", CurrentlyPlayingPanel);
-        jtp.addTab("Credits", creditsPanel);
-        jtp.addTab("Help", helpPanel);
+        tabbedMenuPanel.addTab("Playing", CurrentlyPlayingPanel);
+        tabbedMenuPanel.addTab("Credits", creditsPanel);
+        tabbedMenuPanel.addTab("Help", helpPanel);
+        
+        
         
         //tabbed menu ends
      
         //adding JTabbedPane to topPanel
-        topPanel.add(jtp);
+        topPanel.add(tabbedMenuPanel);
         
         
         
