@@ -10,12 +10,20 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
+import java.awt.Cursor;
+import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
@@ -112,7 +120,8 @@ public class PianoGUI extends JFrame implements ActionListener, KeyListener{
         CurrentlyPlayingPanel.setBackground(Color.BLACK);
         
         JLabel label1 = new JLabel();
-        label1.setText("<html><h2>Currently Playing Note</h2></html>");
+        label1.setText("<html><h2 style=\"margin-left:100;\">Currently Playing Note</h2></html>");
+        currentlyPlayingLabel.setText("<html><h2 style=\"margin-left:200;\">Nothing</h2></html>");
         
         CurrentlyPlayingPanel.add(label1);
         CurrentlyPlayingPanel.add(currentlyPlayingLabel);
@@ -133,8 +142,11 @@ public class PianoGUI extends JFrame implements ActionListener, KeyListener{
         //3rd tab -> helpPanel
         JPanel helpPanel = new JPanel();
         helpPanel.setBackground(Color.BLACK);
-        JLabel helpLabel = new JLabel("watch the keymap to play");
+        JLabel helpLabel = new JLabel("<html><p>Watch the keymap to play</p></html>");
+        JLabel linkLabel = new JLabel();
+        goWebsite(linkLabel,"http://nowshad.scdnlab.com","Click here");
         helpPanel.add(helpLabel);
+        helpPanel.add(linkLabel);
         
         //adding tabs to main JTabbedPane
         tabbedMenuPanel.addTab("Playing", CurrentlyPlayingPanel);
@@ -155,7 +167,9 @@ public class PianoGUI extends JFrame implements ActionListener, KeyListener{
         rightPanel.setBackground(Color.BLACK);
         JLabel rightLabel = new JLabel();
         rightLabel.setText("<html><h1>Right<br>Panel</h1></html>");
-        rightPanel.add(rightLabel);
+        
+        
+        //rightPanel.add(rightLabel);
         
         
         topPanel.add(rightPanel);
@@ -173,6 +187,21 @@ public class PianoGUI extends JFrame implements ActionListener, KeyListener{
         frame.setVisible(true);
         frame.setResizable(false);
         frame.setSize(900,400);
+    }
+    
+    
+    private void goWebsite(JLabel website, final String url, String text) {
+        website.setText("<html> : <a href=\"\">"+text+"</a></html>");
+        website.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        website.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                    try {
+                            Desktop.getDesktop().browse(new URI(url));
+                    } catch (URISyntaxException | IOException ex) {
+                            //It looks like there's a problem
+                    }
+            }
+        });
     }
     
     //function to generate the keyboard
@@ -194,10 +223,21 @@ public class PianoGUI extends JFrame implements ActionListener, KeyListener{
 
                         name = notes[j]+octave[i];
         		jb.setName(name);
+                        jb.setBorderPainted(false);
+                        jb.setBorder(null);
+                        //button.setFocusable(false);
+                        jb.setMargin(new Insets(0, 0, 0, 0));
+                        jb.setContentAreaFilled(false);
         		jb.setActionCommand(name);
         		jb.addActionListener(this);
         		jb.setBounds(x,y,35,207);
         		jb.setFocusable(false);
+                        /* used for pressed & released effect
+                        button.setIcon(myIcon1);
+                        button.setRolloverIcon(myIcon2);
+                        button.setPressedIcon(myIcon3);
+                        button.setDisabledIcon(myIcon4);
+                        */
                         keyboard.add(jb,new Integer(1));
         		keyboard.add(Box.createRigidArea(new Dimension(2, 0)));
                         
@@ -290,7 +330,7 @@ public class PianoGUI extends JFrame implements ActionListener, KeyListener{
                             key = jb.getName();
                             try{
                                 //print the currently playing note
-                                currentlyPlayingLabel.setText("<html><br><h1>"+key+"</h1></html>");
+                                currentlyPlayingLabel.setText("<html><h1 style=\"margin-left:200;\">"+key+"</h1></html>");
                                 //trying to play the note
                                 player.play(key);
                             }catch(Exception e){
@@ -311,7 +351,7 @@ public class PianoGUI extends JFrame implements ActionListener, KeyListener{
                          public void run() {
                             try{
                                 //print the currently playing note
-                                currentlyPlayingLabel.setText("<html><h1>"+key+"</h1></html>");
+                                currentlyPlayingLabel.setText("<html><h1 style=\"margin-left:200;\">"+key+"</h1></html>");
                                 //trying to play note
                                 player.play(key);
                             }catch(Exception e){
