@@ -6,20 +6,27 @@ only for the use of developer
 current state:
     keyboard response & mouse response is fine
     only one unknown exception happens
-    but keyboard does not work after mouse click
-    blank GUI except the keys
+    ok type GUI
 
 final planning
     adding a nice GUI
     key press & key release effect
-    debug problems [2 found]
+        buttons are made transparent
+        functions are written in the comments
+        just need to make images of the buttons
+    
+    debug problems [1 found: still unknown reason [Ghost Reason]]
+    
     add a menu
-    menu will be added above the area of the keyboard
-    best is to make a tabbed menu
-    Menu[tabs]
-        currently playing key[default tab]
-            show the note playing
-        Credits
-        extension:effects [just change the tune of notes]
-    add an icon
+        menu will be added above the area of the keyboard
+        best is to make a tabbed menu
+        Menu[tabs]
+            currently playing key[default tab]
+                show the note playing
+            Credits
+            Help
+            extension:effects [just change the tune of notes]
+        [nearly done, just beautify things]
+    
+    add an application icon with pre-loader
     extension: recording option
