@@ -6,14 +6,12 @@
 
 package PianoPlain;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Container;
 import java.awt.Cursor;
 import java.awt.Desktop;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -27,24 +25,12 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
-import javax.swing.JSeparator;
 import javax.swing.JTabbedPane;
-import javax.swing.JTextPane;
-import javax.swing.SwingConstants;
-import javax.swing.UIManager;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import javax.swing.text.BadLocationException;
-import javax.swing.text.DefaultStyledDocument;
-import javax.swing.text.SimpleAttributeSet;
-import javax.swing.text.StyleConstants;
-import javax.swing.text.StyleContext;
-import javax.swing.text.StyledDocument;
 import org.jfugue.player.Player;
 
 /**
@@ -59,7 +45,7 @@ public class PianoGUI extends JFrame implements ActionListener, KeyListener{
     private String[] notes = {"C","D","E","F","G","A","B"};
     //dhsrp notes
     private String[] sharps = {"C#","D#","F#","G#","A#"};
-    //octaves : 3vhere
+    //octaves : primarily 3 octaves used
     private String[] octave = {"4","5","6"};
     
     //creating a player object to play notes
@@ -68,10 +54,29 @@ public class PianoGUI extends JFrame implements ActionListener, KeyListener{
     private JLabel currentlyPlayingLabel = new JLabel();
     
     
+    
+    
     //constructor
     public PianoGUI() throws BadLocationException{
         //Main JFrame
         frame = new JFrame("VirtualPiano");
+        
+        /*
+        look & feel doesn't work properly
+        makes piano playing jammed
+        & all static labels vanished
+        
+        try {
+        for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+            if ("Nimbus".equals(info.getName())) {
+                UIManager.setLookAndFeel(info.getClassName());
+                break;
+            }
+        }
+        } catch (Exception e) {
+            // If Nimbus is not available, you can set the GUI to another look and feel.
+        }
+        */    
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         frame.setFocusable(true);
@@ -110,7 +115,7 @@ public class PianoGUI extends JFrame implements ActionListener, KeyListener{
         
         JTabbedPane tabbedMenuPanel = new JTabbedPane();
         tabbedMenuPanel.setBackground(Color.LIGHT_GRAY);
-        
+        tabbedMenuPanel.setBorder(null);
         //1st tab -> CurrentlyPlayingPanel
         
         JPanel CurrentlyPlayingPanel = new JPanel();
@@ -168,7 +173,7 @@ public class PianoGUI extends JFrame implements ActionListener, KeyListener{
         rightLabel.setText("<html><h1>Right<br>Panel</h1></html>");
         
         
-        //rightPanel.add(rightLabel);
+        rightPanel.add(rightLabel);
         
         
         topPanel.add(rightPanel);
@@ -222,10 +227,21 @@ public class PianoGUI extends JFrame implements ActionListener, KeyListener{
 
                         name = notes[j]+octave[i];
         		jb.setName(name);
+                        jb.setBorderPainted(false);
+                        jb.setBorder(null);
+                        //button.setFocusable(false);
+                        jb.setMargin(new Insets(0, 0, 0, 0));
+                        jb.setContentAreaFilled(false);
         		jb.setActionCommand(name);
         		jb.addActionListener(this);
         		jb.setBounds(x,y,35,207);
         		jb.setFocusable(false);
+                        /* used for pressed & released effect
+                        button.setIcon(myIcon1);
+                        button.setRolloverIcon(myIcon2);
+                        button.setPressedIcon(myIcon3);
+                        button.setDisabledIcon(myIcon4);
+                        */
                         keyboard.add(jb,new Integer(1));
         		keyboard.add(Box.createRigidArea(new Dimension(2, 0)));
                         
