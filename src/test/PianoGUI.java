@@ -18,20 +18,29 @@
 package test;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Container;
 import java.awt.Cursor;
 import java.awt.Desktop;
 import java.awt.Dimension;
+import java.awt.Image;
 import java.awt.Insets;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URL;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
@@ -61,7 +70,7 @@ public class PianoGUI extends JFrame implements ActionListener, KeyListener{
     
     //creating a player object to play notes
     public static Player player = new Player();
-    
+    //note to view the currently palying note
     private static JLabel currentlyPlayingLabel = new JLabel();
     
 
@@ -72,6 +81,7 @@ public class PianoGUI extends JFrame implements ActionListener, KeyListener{
     public PianoGUI() throws BadLocationException{
         //Main JFrame
         frame = new JFrame("VirtualPiano");
+        
         
         /*
         look & feel doesn't work properly
@@ -208,6 +218,7 @@ public class PianoGUI extends JFrame implements ActionListener, KeyListener{
     
     
     
+    
     //function to generate the keyboard
     public JLayeredPane makeKeyboard(){
         
@@ -236,6 +247,7 @@ public class PianoGUI extends JFrame implements ActionListener, KeyListener{
         		jb.addActionListener(this);
         		jb.setBounds(x,y,35,207);
         		jb.setFocusable(false);
+                        jb.setPressedIcon(new ImageIcon("images/blackKey.png"));
                         /* used for pressed & released effect
                         button.setIcon(myIcon1);
                         button.setRolloverIcon(myIcon2);
@@ -356,8 +368,17 @@ public class PianoGUI extends JFrame implements ActionListener, KeyListener{
 
     @Override
     public void keyPressed(KeyEvent e) {
+        //find the button with the associated keyPressed
+        
+        String keyPressed=null;
+        JButton pressedButton;
+        
         //calling keyboard key response function
-        PianoFunctionality.generateNotes(e);
+        keyPressed = PianoFunctionality.generateNotes(e);
+        if(keyPressed!=null){
+             
+            System.out.println(keyPressed);
+        }
     }
     
     public static void setCurrentlyPlayingLabel(String labelText){
@@ -368,11 +389,5 @@ public class PianoGUI extends JFrame implements ActionListener, KeyListener{
     public void keyReleased(KeyEvent e) {
         
     }
-    
-   /*
-     public static void main(String args[]) throws BadLocationException{
-        new PianoGUI();
-    }
-    */ 
            
 }

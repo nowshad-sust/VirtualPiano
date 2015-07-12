@@ -88,76 +88,83 @@ public class PianoFunctionality {
     //method to determine which note to play
     //with corresponding key event
     //incomplete: black keys still left
-    public static void generateNotes(KeyEvent e){
+    public static String generateNotes(KeyEvent e){
         char keyPressed = e.getKeyChar();
         System.out.println("Pressed: "+keyPressed);
-        
+        String noteToPlay = null;
         switch(keyPressed){
             case 'q':
-                playSound("C4");
+                noteToPlay="C4";
+                
                 break;
             case 'w':
-                playSound("D4");
+                noteToPlay=("D4");
                 break;
             case 'e':
-                playSound("E4");
+                noteToPlay=("E4");
                 break;
             case 'r':
-                playSound("F4");
+                noteToPlay=("F4");
                 break;
             case 't':
-                playSound("G4");
+                noteToPlay=("G4");
                 break;
             case 'y':
-                playSound("A4");
+                noteToPlay=("A4");
                 break;
             case 'u':
-                playSound("B4");
+                noteToPlay=("B4");
                 break;
             case 'a':
-                playSound("C5");
+                noteToPlay=("C5");
                 break;
             case 's':
-                playSound("D5");
+                noteToPlay=("D5");
                 break;
             case 'd':
-                playSound("E5");
+                noteToPlay=("E5");
                 break;
             case 'f':
-                playSound("F5");
+                noteToPlay=("F5");
                 break;
             case 'g':
-                playSound("G5");
+                noteToPlay=("G5");
                 break;
             case 'h':
-                playSound("A5");
+                noteToPlay=("A5");
                 break;
             case 'j':
-                playSound("B5");
+                noteToPlay=("B5");
                 break;
             case 'z':
-                playSound("C6");
+                noteToPlay=("C6");
                 break;
             case 'x':
-                playSound("D6");
+                noteToPlay=("D6");
                 break;
             case 'c':
-                playSound("E6");
+                noteToPlay=("E6");
                 break;
             case 'v':
-                playSound("F6");
+                noteToPlay=("F6");
                 break;
             case 'b':
-                playSound("G6");
+                noteToPlay=("G6");
                 break;
             case 'n':
-                playSound("A6");
+                noteToPlay=("A6");
                 break;
             case 'm':
-                playSound("B6");
+                noteToPlay=("B6");
                 break;
             
         }
+        if(noteToPlay!=null){
+            playSound(noteToPlay);
+            return noteToPlay;
+        }
+        return null;
+        
         
     }
      public static void main(String args[]) {
