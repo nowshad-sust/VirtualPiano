@@ -1,26 +1,43 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Copyright 2015 nowshad.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
+
 
 package PianoPlain;
 
+import test.*;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Cursor;
 import java.awt.Desktop;
 import java.awt.Dimension;
+import java.awt.Image;
 import java.awt.Insets;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URL;
+import javax.imageio.ImageIO;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
@@ -49,10 +66,11 @@ public class PianoGUI extends JFrame implements ActionListener, KeyListener{
     private String[] octave = {"4","5","6"};
     
     //creating a player object to play notes
-    private Player player = new Player();
+    public static Player player = new Player();
+    //note to view the currently palying note
+    private static JLabel currentlyPlayingLabel = new JLabel();
     
-    private JLabel currentlyPlayingLabel = new JLabel();
-    
+
     
     
     
@@ -60,6 +78,7 @@ public class PianoGUI extends JFrame implements ActionListener, KeyListener{
     public PianoGUI() throws BadLocationException{
         //Main JFrame
         frame = new JFrame("VirtualPiano");
+        
         
         /*
         look & feel doesn't work properly
@@ -148,7 +167,7 @@ public class PianoGUI extends JFrame implements ActionListener, KeyListener{
         helpPanel.setBackground(Color.BLACK);
         JLabel helpLabel = new JLabel("<html><p>Watch the keymap to play</p></html>");
         JLabel linkLabel = new JLabel();
-        goWebsite(linkLabel,"http://nowshad.scdnlab.com","Click here");
+        PianoFunctionality.goWebsite(linkLabel,"http://nowshad.scdnlab.com","Click here");
         helpPanel.add(helpLabel);
         helpPanel.add(linkLabel);
         
@@ -194,19 +213,8 @@ public class PianoGUI extends JFrame implements ActionListener, KeyListener{
     }
     
     
-    private void goWebsite(JLabel website, final String url, String text) {
-        website.setText("<html> : <a href=\"\">"+text+"</a></html>");
-        website.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        website.addMouseListener(new MouseAdapter() {
-            public void mouseClicked(MouseEvent e) {
-                    try {
-                            Desktop.getDesktop().browse(new URI(url));
-                    } catch (URISyntaxException | IOException ex) {
-                            //It looks like there's a problem
-                    }
-            }
-        });
-    }
+    
+    
     
     //function to generate the keyboard
     public JLayeredPane makeKeyboard(){
@@ -236,6 +244,7 @@ public class PianoGUI extends JFrame implements ActionListener, KeyListener{
         		jb.addActionListener(this);
         		jb.setBounds(x,y,35,207);
         		jb.setFocusable(false);
+                        jb.setPressedIcon(new ImageIcon("images/blackKey.png"));
                         /* used for pressed & released effect
                         button.setIcon(myIcon1);
                         button.setRolloverIcon(myIcon2);
@@ -316,9 +325,7 @@ public class PianoGUI extends JFrame implements ActionListener, KeyListener{
         
     }
     
-    public static void main(String args[]) throws BadLocationException{
-        new PianoGUI();
-    }
+   
 
     //mouse event handler
     @Override
@@ -349,27 +356,7 @@ public class PianoGUI extends JFrame implements ActionListener, KeyListener{
                     }
         
         
-        //function to call for keyboard events
-        public void playSound(String key){
-            Runnable playNotes = new Runnable(){
-                         public void run() {
-                            try{
-                                //print the currently playing note
-                                currentlyPlayingLabel.setText("<html><h1 style=\"margin-left:200;\">"+key+"</h1></html>");
-                                //trying to play note
-                                player.play(key);
-                            }catch(Exception e){
-                                System.out.println("Exception with "+ key);
-                                //retrying to play
-                                player.play(key);
-                            }
-                             
-                            
-                            }
-		         };
-		 	(new Thread(playNotes)).start();
-		            
-        }
+        
 
     @Override
     public void keyTyped(KeyEvent e) {
@@ -378,88 +365,20 @@ public class PianoGUI extends JFrame implements ActionListener, KeyListener{
 
     @Override
     public void keyPressed(KeyEvent e) {
-        //calling keyboard key response function
-        generateNotes(e);
-    }
-
-    @Override
-    public void keyReleased(KeyEvent e) {
+        //find the button with the associated key
         
+        
+        
+        //calling keyboard key response function
+        PianoFunctionality.generateNotes(e);
     }
     
-    //method to determine which note to play
-    //with corresponding key event
-    //incomplete: black keys still left
-    public void generateNotes(KeyEvent e){
-        char keyPressed = e.getKeyChar();
-        System.out.println("Pressed: "+keyPressed);
-        
-        switch(keyPressed){
-            case 'q':
-                playSound("C4");
-                break;
-            case 'w':
-                playSound("D4");
-                break;
-            case 'e':
-                playSound("E4");
-                break;
-            case 'r':
-                playSound("F4");
-                break;
-            case 't':
-                playSound("G4");
-                break;
-            case 'y':
-                playSound("A4");
-                break;
-            case 'u':
-                playSound("B4");
-                break;
-            case 'a':
-                playSound("C5");
-                break;
-            case 's':
-                playSound("D5");
-                break;
-            case 'd':
-                playSound("E5");
-                break;
-            case 'f':
-                playSound("F5");
-                break;
-            case 'g':
-                playSound("G5");
-                break;
-            case 'h':
-                playSound("A5");
-                break;
-            case 'j':
-                playSound("B5");
-                break;
-            case 'z':
-                playSound("C6");
-                break;
-            case 'x':
-                playSound("D6");
-                break;
-            case 'c':
-                playSound("E6");
-                break;
-            case 'v':
-                playSound("F6");
-                break;
-            case 'b':
-                playSound("G6");
-                break;
-            case 'n':
-                playSound("A6");
-                break;
-            case 'm':
-                playSound("B6");
-                break;
-            
-        }
+    public static void setCurrentlyPlayingLabel(String labelText){
+        currentlyPlayingLabel.setText(labelText);
+    }
+    
+    @Override
+    public void keyReleased(KeyEvent e) {
         
     }
            
