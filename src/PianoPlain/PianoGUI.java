@@ -20,24 +20,13 @@ package PianoPlain;
 import test.*;
 import java.awt.Color;
 import java.awt.Container;
-import java.awt.Cursor;
-import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.Insets;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URL;
-import javax.imageio.ImageIO;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
@@ -69,15 +58,19 @@ public class PianoGUI extends JFrame implements ActionListener, KeyListener{
     public static Player player = new Player();
     //note to view the currently palying note
     private static JLabel currentlyPlayingLabel = new JLabel();
-    
-
-    
-    
+        
     
     //constructor
     public PianoGUI() throws BadLocationException{
         //Main JFrame
         frame = new JFrame("VirtualPiano");
+        //setting jframe icon
+        try{
+            Image image = new ImageIcon("images/piano2.png").getImage();
+            frame.setIconImage(image);
+        }catch(Exception e){
+            System.out.println("Appilcation icon not found");
+        }
         
         
         /*
@@ -237,13 +230,17 @@ public class PianoGUI extends JFrame implements ActionListener, KeyListener{
         		jb.setName(name);
                         jb.setBorderPainted(false);
                         jb.setBorder(null);
-                        //button.setFocusable(false);
                         jb.setMargin(new Insets(0, 0, 0, 0));
                         jb.setContentAreaFilled(false);
         		jb.setActionCommand(name);
         		jb.addActionListener(this);
+                        jb.setMnemonic(KeyEvent.VK_Q);
         		jb.setBounds(x,y,35,207);
         		jb.setFocusable(false);
+                        jb.setOpaque(false);
+                        jb.setContentAreaFilled(false);
+                        jb.setBorderPainted(false);
+                        //set button turn black when clicked
                         jb.setPressedIcon(new ImageIcon("images/blackKey.png"));
                         /* used for pressed & released effect
                         button.setIcon(myIcon1);
@@ -272,7 +269,17 @@ public class PianoGUI extends JFrame implements ActionListener, KeyListener{
     		jb0.setName(name);
     		jb0.setActionCommand(name);
     		jb0.addActionListener(this);
-                jb0.setFocusable(false);
+                jb0.setBorderPainted(false);
+                        jb0.setBorder(null);
+                        jb0.setMargin(new Insets(0, 0, 0, 0));
+                        jb0.setContentAreaFilled(false);
+        		jb0.setActionCommand(name);
+        		jb0.addActionListener(this);
+        		jb0.setBounds(x,y,35,207);
+        		jb0.setFocusable(false);
+                        jb0.setOpaque(false);
+                        jb0.setContentAreaFilled(false);
+                        jb0.setBorderPainted(false);
 
     		
     		JButton jb1 = new JButton(img);
@@ -280,29 +287,69 @@ public class PianoGUI extends JFrame implements ActionListener, KeyListener{
     		jb1.setName(name);
     		jb1.setActionCommand(name);
     		jb1.addActionListener(this);
-    		jb1.setFocusable(false);
-                
-    		JButton jb2 = new JButton(img);
+    		jb1.setBorderPainted(false);
+                        jb1.setBorder(null);
+                        jb1.setMargin(new Insets(0, 0, 0, 0));
+                        jb1.setContentAreaFilled(false);
+        		jb1.setActionCommand(name);
+        		jb1.addActionListener(this);
+        		jb1.setBounds(x,y,35,207);
+        		jb1.setFocusable(false);
+                        jb1.setOpaque(false);
+                        jb1.setContentAreaFilled(false);
+                        jb1.setBorderPainted(false);
+    		
+                JButton jb2 = new JButton(img);
     		name = sharps[2]+octave[i];
     		jb2.setName(name);
     		jb2.setActionCommand(name);
     		jb2.addActionListener(this);
-    		jb2.setFocusable(false);
-                
-    		JButton jb3 = new JButton(img);
+    		jb2.setBorderPainted(false);
+                        jb2.setBorder(null);
+                        jb2.setMargin(new Insets(0, 0, 0, 0));
+                        jb2.setContentAreaFilled(false);
+        		jb2.setActionCommand(name);
+        		jb2.addActionListener(this);
+        		jb2.setBounds(x,y,35,207);
+        		jb2.setFocusable(false);
+                        jb2.setOpaque(false);
+                        jb2.setContentAreaFilled(false);
+                        jb2.setBorderPainted(false);
+    		
+                JButton jb3 = new JButton(img);
     		name = sharps[3]+octave[i];
     		jb3.setName(name);
     		jb3.setActionCommand(name);
     		jb3.addActionListener(this);
-    		jb3.setFocusable(false);
-                
+    		jb3.setBorderPainted(false);
+                        jb3.setBorder(null);
+                        jb3.setMargin(new Insets(0, 0, 0, 0));
+                        jb3.setContentAreaFilled(false);
+        		jb3.setActionCommand(name);
+        		jb3.addActionListener(this);
+        		jb3.setBounds(x,y,35,207);
+        		jb3.setFocusable(false);
+                        jb3.setOpaque(false);
+                        jb3.setContentAreaFilled(false);
+                        jb3.setBorderPainted(false);
+                        
     		JButton jb4 = new JButton(img);
     		name = sharps[4]+octave[i];
     		jb4.setName(name);
     		jb4.setActionCommand(name);
     		jb4.addActionListener(this);
-    		jb4.setFocusable(false);
-                
+    		jb4.setBorderPainted(false);
+                        jb4.setBorder(null);
+                        jb4.setMargin(new Insets(0, 0, 0, 0));
+                        jb4.setContentAreaFilled(false);
+        		jb4.setActionCommand(name);
+        		jb4.addActionListener(this);
+        		jb4.setBounds(x,y,35,207);
+        		jb4.setFocusable(false);
+                        jb4.setOpaque(false);
+                        jb4.setContentAreaFilled(false);
+                        jb4.setBorderPainted(false);
+                        
     		// Place the 5 keys 
     		jb0.setBounds(77+(260*i),y-1,25,115);
     		keyboard.add(jb0,new Integer(2));
@@ -365,12 +412,19 @@ public class PianoGUI extends JFrame implements ActionListener, KeyListener{
 
     @Override
     public void keyPressed(KeyEvent e) {
-        //find the button with the associated key
+        //find the button with the associated keyPressed
         
-        
+        String keyPressed=null;
+        JButton pressedButton = new JButton();
         
         //calling keyboard key response function
-        PianoFunctionality.generateNotes(e);
+        keyPressed = PianoFunctionality.generateNotes(e);
+        if(keyPressed!=null){
+             
+            System.out.println(keyPressed);
+            pressedButton.setName(keyPressed);
+            pressedButton.doClick();
+        }
     }
     
     public static void setCurrentlyPlayingLabel(String labelText){
