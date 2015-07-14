@@ -18,29 +18,14 @@
 package test;
 
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Container;
-import java.awt.Cursor;
-import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.Insets;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.lang.reflect.Field;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.imageio.ImageIO;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
@@ -81,6 +66,13 @@ public class PianoGUI extends JFrame implements ActionListener, KeyListener{
     public PianoGUI() throws BadLocationException{
         //Main JFrame
         frame = new JFrame("VirtualPiano");
+        //setting jframe icon
+        try{
+            Image image = new ImageIcon("images/piano2.png").getImage();
+            frame.setIconImage(image);
+        }catch(Exception e){
+            System.out.println("Appilcation icon load failed");
+        }
         
         
         /*
@@ -244,6 +236,7 @@ public class PianoGUI extends JFrame implements ActionListener, KeyListener{
                         jb.setContentAreaFilled(false);
         		jb.setActionCommand(name);
         		jb.addActionListener(this);
+                        jb.setMnemonic(KeyEvent.VK_Q);
         		jb.setBounds(x,y,35,207);
         		jb.setFocusable(false);
                         jb.setOpaque(false);
@@ -424,13 +417,15 @@ public class PianoGUI extends JFrame implements ActionListener, KeyListener{
         //find the button with the associated keyPressed
         
         String keyPressed=null;
-        JButton pressedButton;
+        JButton pressedButton = new JButton();
         
         //calling keyboard key response function
         keyPressed = PianoFunctionality.generateNotes(e);
         if(keyPressed!=null){
              
             System.out.println(keyPressed);
+            pressedButton.setName(keyPressed);
+            pressedButton.doClick();
         }
     }
     
