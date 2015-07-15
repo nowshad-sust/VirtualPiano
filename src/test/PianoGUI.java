@@ -200,7 +200,7 @@ public class PianoGUI extends JFrame implements ActionListener, KeyListener{
         //adding to topPanel
         topPanel.add(leftPanel);
         //topPanel.add(tabbedMenuPanel);
-        topPanel.add(testLabel);
+        topPanel.add(currentlyPlayingLabel);
         topPanel.add(rightPanel);
         
         
@@ -401,7 +401,6 @@ public class PianoGUI extends JFrame implements ActionListener, KeyListener{
                             key = jb.getName();
                             try{
                                 System.out.println(key);
-                                testLabel.setText("overrride");
                                 //print the currently playing note
                                 setCurrentlyPlayingLabel(key);
                                 //trying to play the note
