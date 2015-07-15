@@ -26,6 +26,7 @@ import java.net.URISyntaxException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JLabel;
+import javax.swing.SwingUtilities;
 import javax.swing.text.BadLocationException;
 
 /**
@@ -36,14 +37,10 @@ import javax.swing.text.BadLocationException;
 //brain of PianoGUI class
 public class PianoFunctionality {
     
-    PianoGUI PianoGUIObject;
+    public static PianoGUI PianoGUIObject;
     
     public PianoFunctionality(){
-        try {
-            PianoGUIObject = new PianoGUI();
-        } catch (BadLocationException ex) {
-            Logger.getLogger(PianoFunctionality.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        
     }
     
     public static void goWebsite(JLabel website, final String url, String text) {
@@ -168,7 +165,18 @@ public class PianoFunctionality {
         
     }
      public static void main(String args[]) {
-         new PianoFunctionality();
+         SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    PianoGUIObject = new PianoGUI();
+                } catch (BadLocationException ex) {
+                    Logger.getLogger(PianoFunctionality.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                PianoFunctionality pianoFunctionality = new PianoFunctionality();
+            }
+        });
+        
     }
     
 }

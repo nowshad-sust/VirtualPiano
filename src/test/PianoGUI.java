@@ -35,6 +35,7 @@ import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
+import javax.swing.UIManager;
 import javax.swing.text.BadLocationException;
 import org.jfugue.player.Player;
 
@@ -56,11 +57,8 @@ public class PianoGUI extends JFrame implements ActionListener, KeyListener{
     //creating a player object to play notes
     public static Player player = new Player();
     //note to view the currently palying note
-    private static JLabel currentlyPlayingLabel = new JLabel();
-    
-
-    
-    
+    private static JLabel currentlyPlayingLabel;
+    public static JLabel testLabel;   
     
     //constructor
     public PianoGUI() throws BadLocationException{
@@ -71,9 +69,11 @@ public class PianoGUI extends JFrame implements ActionListener, KeyListener{
             Image image = new ImageIcon("images/piano2.png").getImage();
             frame.setIconImage(image);
         }catch(Exception e){
-            System.out.println("Appilcation icon load failed");
+            System.out.println("Appilcation icon not found");
         }
         
+        // Set a background for JFrame
+        frame.setContentPane(new JLabel(new ImageIcon("images/background.jpg")));
         
         /*
         look & feel doesn't work properly
@@ -101,8 +101,8 @@ public class PianoGUI extends JFrame implements ActionListener, KeyListener{
         
         Container mainPanel = frame.getContentPane();
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
-		mainPanel.setForeground(Color.lightGray);
-		mainPanel.setBackground(Color.BLACK);
+		mainPanel.setForeground(new Color(0,0,0,0));
+		mainPanel.setBackground(new Color(0,0,0,0));
         
         mainPanel.add(Box.createRigidArea(new Dimension(0,10)));
         
@@ -110,56 +110,61 @@ public class PianoGUI extends JFrame implements ActionListener, KeyListener{
         
         JPanel topPanel = new JPanel();
         topPanel.setLayout(new BoxLayout(topPanel, BoxLayout.X_AXIS));
-        topPanel.setBackground(Color.BLACK);
+        topPanel.setBackground(new Color(0,0,0,0));
         topPanel.setPreferredSize(new Dimension(600,50));
+        topPanel.setFocusable(false);
       
         //logo area/ "Virtual Piano" - title area
         
         JPanel leftPanel = new JPanel();
-        leftPanel.setBackground(Color.BLACK);
+        leftPanel.setBackground(new Color(0,0,0,65));
         JLabel leftLabel = new JLabel();
         leftLabel.setText("<html><h1>Virtual<br>Piano</h1></html>");
         leftPanel.add(leftLabel);
         
         
-        topPanel.add(leftPanel);
+        
+        
+        //massive GUI bug that gets created when any button is pressed
+        //or mouse clicked
         
         
         //tabbed menu starts
-        
+        UIManager.put("tabbedMenuPanel.contentOpaque", false);
         JTabbedPane tabbedMenuPanel = new JTabbedPane();
-        tabbedMenuPanel.setBackground(Color.LIGHT_GRAY);
+        tabbedMenuPanel.setBackground(new Color(0,0,0,255));
         tabbedMenuPanel.setBorder(null);
+        tabbedMenuPanel.setFocusable(false);
         //1st tab -> CurrentlyPlayingPanel
         
         JPanel CurrentlyPlayingPanel = new JPanel();
         
         CurrentlyPlayingPanel.setLayout(new BoxLayout(CurrentlyPlayingPanel, BoxLayout.Y_AXIS));
-        CurrentlyPlayingPanel.setBackground(Color.BLACK);
+        CurrentlyPlayingPanel.setBackground(new Color(0,0,0,0));
         
         JLabel label1 = new JLabel();
+        currentlyPlayingLabel = new JLabel("<html><h2 style=\"margin-left:200;\">Nothing</h2></html>"); 
         label1.setText("<html><h2 style=\"margin-left:100;\">Currently Playing Note</h2></html>");
-        currentlyPlayingLabel.setText("<html><h2 style=\"margin-left:200;\">Nothing</h2></html>");
         
         CurrentlyPlayingPanel.add(label1);
         CurrentlyPlayingPanel.add(currentlyPlayingLabel);
         
         //2nd tab -> CreditsPanel
         JPanel creditsPanel = new JPanel();
-        creditsPanel.setBackground(Color.BLACK);
-        JLabel label2 = new JLabel();
+        creditsPanel.setBackground(new Color(0,0,0,0));
+        JLabel creditsLabel = new JLabel();
         //credits text
-        label2.setText("<html>Md. Al-amin Nowshad"
+        creditsLabel.setText("<html>Md. Al-amin Nowshad"
                 + "<br>Batch: 2012,"
                 + "<br>Dept. of Computer Science & Engineering,"
                 + "<br>ShahJalal University of Science & Technology"
                 + "<br>email: iamnowshad@gmail.com</html>");
         
-        creditsPanel.add(label2);
+        creditsPanel.add(creditsLabel);
         
         //3rd tab -> helpPanel
         JPanel helpPanel = new JPanel();
-        helpPanel.setBackground(Color.BLACK);
+        helpPanel.setBackground(new Color(0,0,0,0));
         JLabel helpLabel = new JLabel("<html><p>Watch the keymap to play</p></html>");
         JLabel linkLabel = new JLabel();
         PianoFunctionality.goWebsite(linkLabel,"http://nowshad.scdnlab.com","Click here");
@@ -175,21 +180,27 @@ public class PianoGUI extends JFrame implements ActionListener, KeyListener{
         
         //tabbed menu ends
      
-        //adding JTabbedPane to topPanel
-        topPanel.add(tabbedMenuPanel);
+        
         
         
         
         //right Panel
         JPanel rightPanel = new JPanel();
-        rightPanel.setBackground(Color.BLACK);
+        rightPanel.setBackground(new Color(0,0,0,65));
         JLabel rightLabel = new JLabel();
         rightLabel.setText("<html><h1>Right<br>Panel</h1></html>");
         
         
+        //test label
+        testLabel = new JLabel("Test label");
+        
+        
         rightPanel.add(rightLabel);
         
-        
+        //adding to topPanel
+        topPanel.add(leftPanel);
+        //topPanel.add(tabbedMenuPanel);
+        topPanel.add(testLabel);
         topPanel.add(rightPanel);
         
         
@@ -236,7 +247,8 @@ public class PianoGUI extends JFrame implements ActionListener, KeyListener{
                         jb.setContentAreaFilled(false);
         		jb.setActionCommand(name);
         		jb.addActionListener(this);
-                        jb.setMnemonic(KeyEvent.VK_Q);
+                        //test keyboard input
+                        //jb.setMnemonic(KeyEvent.VK_Q);
         		jb.setBounds(x,y,35,207);
         		jb.setFocusable(false);
                         jb.setOpaque(false);
@@ -373,8 +385,7 @@ public class PianoGUI extends JFrame implements ActionListener, KeyListener{
         
         
     }
-    
-   
+      
 
     //mouse event handler
     @Override
@@ -389,8 +400,10 @@ public class PianoGUI extends JFrame implements ActionListener, KeyListener{
                             final JButton jb = (JButton)obj;
                             key = jb.getName();
                             try{
+                                System.out.println(key);
+                                testLabel.setText("overrride");
                                 //print the currently playing note
-                                currentlyPlayingLabel.setText("<html><h1 style=\"margin-left:200;\">"+key+"</h1></html>");
+                                setCurrentlyPlayingLabel(key);
                                 //trying to play the note
                                 player.play(key);
                             }catch(Exception e){
