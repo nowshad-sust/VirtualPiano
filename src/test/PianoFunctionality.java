@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package test;
 
 import java.awt.Cursor;
@@ -65,7 +66,7 @@ public class PianoFunctionality {
                             try{
                                 //print the currently playing note
                                 //pianoGUIRef.setCurrentlyPlayingLabel.setText("<html><h1 style=\"margin-left:200;\">"+key+"</h1></html>");
-                                PianoGUI.setCurrentlyPlayingLabel("<html><h1 style=\"margin-left:200;\">"+key+"</h1></html>");
+                                PianoGUI.setCurrentlyPlayingLabel(key);
                                 //trying to play note
                                 PianoGUI.player.play(key);
                             }catch(Exception e){
@@ -157,7 +158,7 @@ public class PianoFunctionality {
             
         }
         if(noteToPlay!=null){
-            playSound(noteToPlay);
+            //playSound(noteToPlay);
             return noteToPlay;
         }
         return null;
