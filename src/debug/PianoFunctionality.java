@@ -58,30 +58,6 @@ public class PianoFunctionality {
             }
         });
     }
-    /*
-    //function to call for keyboard events
-        public static void playSound(String key){
-            Runnable playNotes = new Runnable(){
-                         public void run() {
-                            try{
-                                //print the currently playing note
-                                //pianoGUIRef.setCurrentlyPlayingLabel.setText("<html><h1 style=\"margin-left:200;\">"+key+"</h1></html>");
-                                PianoGUI.setCurrentlyPlayingLabel(key);
-                                //trying to play note
-                                PianoGUI.player.play(key);
-                            }catch(Exception e){
-                                System.out.println("Exception with "+ key);
-                                //retrying to play
-                                PianoGUI.player.play(key);
-                            }
-                             
-                            
-                            }
-		         };
-		 	(new Thread(playNotes)).start();
-		            
-        }
-    */
         
     //method to determine which note to play
     //with corresponding key event

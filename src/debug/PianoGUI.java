@@ -27,6 +27,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.Box;
@@ -38,6 +40,7 @@ import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
+import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.text.BadLocationException;
@@ -141,56 +144,6 @@ public class PianoGUI extends JFrame implements ActionListener, KeyListener{
         //tabbed menu starts
         JPanel tabbedMenu = menuObj.createDifferentMenu();
         tabbedMenu.setSize(200, 100);
-        /*
-        //1st tab -> CurrentlyPlayingPanel
-        
-        JPanel CurrentlyPlayingPanel = new JPanel();
-        
-        CurrentlyPlayingPanel.setLayout(new BoxLayout(CurrentlyPlayingPanel, BoxLayout.Y_AXIS));
-        
-        CurrentlyPlayingPanel.setBackground(new Color(0,0,0,0));
-        
-        JLabel label1 = new JLabel();
-        currentlyPlayingLabel = new JLabel("<html><h2 style=\"margin-left:200;\">Nothing</h2></html>"); 
-        label1.setText("<html><h2 style=\"margin-left:100;\">Currently Playing Note</h2></html>");
-        
-        CurrentlyPlayingPanel.add(label1);
-        CurrentlyPlayingPanel.add(currentlyPlayingLabel);
-        
-        //2nd tab -> CreditsPanel
-        JPanel creditsPanel = new JPanel();
-        creditsPanel.setBackground(new Color(0,0,0,0));
-        JLabel creditsLabel = new JLabel();
-        //credits text
-        creditsLabel.setText("<html>Md. Al-amin Nowshad"
-                + "<br>Batch: 2012,"
-                + "<br>Dept. of Computer Science & Engineering,"
-                + "<br>ShahJalal University of Science & Technology"
-                + "<br>email: iamnowshad@gmail.com</html>");
-        
-        creditsPanel.add(creditsLabel);
-        
-        //3rd tab -> helpPanel
-        JPanel helpPanel = new JPanel();
-        helpPanel.setBackground(new Color(0,0,0,0));
-        JLabel helpLabel = new JLabel("<html><p>Watch the keymap to play</p></html>");
-        JLabel linkLabel = new JLabel();
-        PianoFunctionality.goWebsite(linkLabel,"http://nowshad.scdnlab.com","Click here");
-        helpPanel.add(helpLabel);
-        helpPanel.add(linkLabel);
-        
-        //adding tabs to main JTabbedPane
-        tabbedMenuPanel.addTab("Playing", CurrentlyPlayingPanel);
-        tabbedMenuPanel.addTab("Credits", creditsPanel);
-        tabbedMenuPanel.addTab("Help", helpPanel);
-        
-        
-        
-        //tabbed menu ends
-     */
-        
-        
-        
         
         //right Panel
         JPanel rightPanel = new JPanel();
@@ -223,7 +176,7 @@ public class PianoGUI extends JFrame implements ActionListener, KeyListener{
         
         frame.setVisible(true);
         frame.setResizable(false);
-        frame.setSize(900,400);
+        frame.setSize(900,420);
     }
     
     
@@ -245,9 +198,13 @@ public class PianoGUI extends JFrame implements ActionListener, KeyListener{
         for(int i=0;i<octave.length;++i){
             for(int j=0;j<notes.length;++j){
                 ImageIcon img = new ImageIcon("images/"+notes[j]+".png");
-                JButton jb = new JButton(img);
-
+                
                         name = notes[j]+octave[i];
+                        //trying to show name on the button
+                        //but not working
+                        JButton jb = new JButton(name,img);
+                        jb.setVerticalTextPosition(SwingConstants.BOTTOM);
+                        jb.setHorizontalTextPosition(SwingConstants.CENTER);
         		jb.setName(name);
                         buttonMap.put(name, jb);
                         jb.setBorderPainted(false);

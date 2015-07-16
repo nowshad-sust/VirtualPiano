@@ -181,15 +181,26 @@ public class Menu extends JFrame implements ActionListener{
             }
             else if(e.getActionCommand().equals("Credits"))
             {
-                menuLabel.setText("Credits");
+                String creditsText="<html>Md. Al-amin Nowshad"
+                + "<br>Batch: 2012,"
+                + "<br>Dept. of Computer Science & Engineering,"
+                + "<br>ShahJalal University of Science & Technology"
+                + "<br>email: iamnowshad@gmail.com</html>";
+                
+                menuLabel.setText(creditsText);
             }
             else if(e.getActionCommand().equals("Manual"))
             {
                 menuLabel.setText("Manual");
+                ManualClass manualObject = new ManualClass();
+                JFrame manualFrame = manualObject.createManual();
+                manualFrame.setVisible(true);
+                    
             }
             else if(e.getActionCommand().equals("Help"))
             {
-                menuLabel.setText("Help");
+                //PianoFunctionality.goWebsite(menuLabel,"http://nowshad.scdnlab.com","Click here");
+                menuLabel.setText("http://nowshad.scdnlab.com");
             }
         }
     
@@ -199,6 +210,7 @@ public class Menu extends JFrame implements ActionListener{
         		jb.setActionCommand(name);
         		jb.addActionListener(this);
                         jb.setFocusable(false);
+                        //jb.setRolloverIcon(null);
                         //jb.setOpaque(false);
                         //set button turn black when clicked
                         //jb.setPressedIcon(new ImageIcon("images/blackKey.png"));
@@ -206,11 +218,4 @@ public class Menu extends JFrame implements ActionListener{
     public void setCurrentlyPlayingLabel(String labelText){
         this.currentlyPlayingLabel.setText(labelText);
     }
-    public static void main(String args[]){
-        
-        new Menu();
-        
-    }
-
-    
 }
