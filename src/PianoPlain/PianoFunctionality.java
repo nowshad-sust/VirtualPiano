@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package PianoPlain;
 
-import test.*;
 import java.awt.Cursor;
 import java.awt.Desktop;
 import java.awt.event.KeyEvent;
@@ -27,6 +27,7 @@ import java.net.URISyntaxException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JLabel;
+import javax.swing.SwingUtilities;
 import javax.swing.text.BadLocationException;
 
 /**
@@ -37,14 +38,10 @@ import javax.swing.text.BadLocationException;
 //brain of PianoGUI class
 public class PianoFunctionality {
     
-    PianoGUI PianoGUIObject;
+    //public static PianoGUI PianoGUIObject;
     
     public PianoFunctionality(){
-        try {
-            PianoGUIObject = new PianoGUI();
-        } catch (BadLocationException ex) {
-            Logger.getLogger(PianoFunctionality.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        
     }
     
     public static void goWebsite(JLabel website, final String url, String text) {
@@ -61,7 +58,7 @@ public class PianoFunctionality {
             }
         });
     }
-    
+    /*
     //function to call for keyboard events
         public static void playSound(String key){
             Runnable playNotes = new Runnable(){
@@ -69,7 +66,7 @@ public class PianoFunctionality {
                             try{
                                 //print the currently playing note
                                 //pianoGUIRef.setCurrentlyPlayingLabel.setText("<html><h1 style=\"margin-left:200;\">"+key+"</h1></html>");
-                                PianoGUI.setCurrentlyPlayingLabel("<html><h1 style=\"margin-left:200;\">"+key+"</h1></html>");
+                                PianoGUI.setCurrentlyPlayingLabel(key);
                                 //trying to play note
                                 PianoGUI.player.play(key);
                             }catch(Exception e){
@@ -84,7 +81,7 @@ public class PianoFunctionality {
 		 	(new Thread(playNotes)).start();
 		            
         }
-    
+    */
         
     //method to determine which note to play
     //with corresponding key event
@@ -161,7 +158,7 @@ public class PianoFunctionality {
             
         }
         if(noteToPlay!=null){
-            playSound(noteToPlay);
+            //playSound(noteToPlay);
             return noteToPlay;
         }
         return null;
@@ -169,7 +166,18 @@ public class PianoFunctionality {
         
     }
      public static void main(String args[]) {
-         new PianoFunctionality();
+         SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    PianoGUI PianoGUIObject = new PianoGUI();
+                } catch (BadLocationException ex) {
+                    Logger.getLogger(PianoFunctionality.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                PianoFunctionality pianoFunctionality = new PianoFunctionality();
+            }
+        });
+        
     }
     
 }
