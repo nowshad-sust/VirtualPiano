@@ -7,6 +7,7 @@ current state:
     keyboard response & mouse response is fine
     only one unknown exception happens
     ok type GUI
+    massive bug with the currently playing label
 
 final planning
     adding a nice GUI
@@ -18,6 +19,7 @@ final planning
     debug problems [1 found: still unknown reason [Ghost Reason]]
     
     add a menu
+    create a new bug free menu (bug free for god's sake) 
         menu will be added above the area of the keyboard
         best is to make a tabbed menu
         Menu[tabs]
