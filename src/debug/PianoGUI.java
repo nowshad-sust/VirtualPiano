@@ -23,6 +23,7 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Insets;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -176,6 +177,16 @@ public class PianoGUI extends JFrame implements ActionListener, KeyListener{
         
         frame.setVisible(true);
         frame.setResizable(false);
+        frame.pack();
+
+        // make the frame half the height and width
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int height = screenSize.height;
+        int width = screenSize.width;
+        frame.setSize(width/2, height/2);
+
+        // here's the part where i center the jframe on screen
+        frame.setLocationRelativeTo(null);
         frame.setSize(900,420);
     }
     
