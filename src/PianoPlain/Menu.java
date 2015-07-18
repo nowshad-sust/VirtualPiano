@@ -13,10 +13,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+
+/**
+ * Class to create the menu shown at the top Panel of the main GUI
+ * createManu is a function that creates a tabbed menu (which is now commented out)
+ * createDifferentMenu is the currently working menu
+ * works fine with one bug
+ * 
+ * BUG:
+ *      Location: menuLabel
+ *      summary: when an string is assigned to the label
+ *               it generates a mess on that label
+ *      primary solution: made the whole menu background black
+ *                        that hides the bug happening
+ *      reason: still unknown
+*/
 package PianoPlain;
 
+import debug.*;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Cursor;
+import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
@@ -25,6 +44,11 @@ import java.awt.Insets;
 import java.awt.PopupMenu;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -40,7 +64,8 @@ import javax.swing.JTabbedPane;
 
 public class Menu extends JFrame implements ActionListener{
     public static JLabel currentlyPlayingLabel  = new JLabel();
-    private JLabel menuLabel;
+    public static JLabel menuLabel = new JLabel("Main Menu");;
+    public static String currentlyPlayingNote = "Nothing";
     public Menu(){
         /*
         JFrame frame = new JFrame();
@@ -56,6 +81,7 @@ public class Menu extends JFrame implements ActionListener{
         frame.setSize(900,400);
        */
     }
+    /*
     public static JPanel createMenu(){
         
         JPanel topPanel = new JPanel();
@@ -113,12 +139,12 @@ public class Menu extends JFrame implements ActionListener{
         return topPanel;
         
     }
-    
+    */
     public JPanel createDifferentMenu(){
         
         JPanel differentMenu = new JPanel();
-        //differentMenu.setBackground(new Color(0,0,0,65));
-        differentMenu.setBackground(Color.black);
+        differentMenu.setBackground(new Color(0,0,0,65));
+        //differentMenu.setBackground(Color.black);
         //differentMenu
         JPanel menuBar = new JPanel();
         menuBar.setLayout(new GridLayout(1,4));
@@ -127,6 +153,7 @@ public class Menu extends JFrame implements ActionListener{
         JButton manualButton = new JButton("Manual");
         JButton creditsButton = new JButton("Credits");
         JButton helpButton = new JButton("Help");
+        goWebsite(helpButton, "http://nowshad.scdnlab.com");
         
         setButtonDesign(playingButton);
         setButtonDesign(manualButton);
@@ -143,10 +170,18 @@ public class Menu extends JFrame implements ActionListener{
         
         JPanel menuPanel = new JPanel();
         menuPanel.setBackground(Color.black);
-        //menuPanel.setBackground(new Color(0,0,0,65));
-        menuPanel.setLayout(new FlowLayout());
-        menuLabel = new JLabel("default text");
         
+        /*
+        GUI bug:
+            if the background is transparent then bug happens
+            //menuPanel.setBackground(new Color(0,0,0,65));
+        */
+        
+        menuPanel.setLayout(new FlowLayout());
+        
+        //menuLabel.setBackground(Color.BLACK);
+        menuLabel.setForeground(new Color(242, 243, 244, 1));
+        menuLabel.setSize(50, 50);
         menuPanel.add(menuLabel);
         
         
@@ -160,19 +195,39 @@ public class Menu extends JFrame implements ActionListener{
         {
             if(e.getActionCommand().equals("Playing"))
             {
-                menuLabel.setText("Playing");
+                String playingText = "<html><h3>Currently Playing Note</h3>"
+                + "<br><h4 style=\"padding-left:50;\">"+currentlyPlayingNote+"</h4></html>";
+                menuLabel.setText(playingText);
             }
             else if(e.getActionCommand().equals("Credits"))
             {
-                menuLabel.setText("Credits");
+                String creditsText = "<html>Md. Al-amin Nowshad"
+                + "<br>Batch: 2012,"
+                + "<br>Dept. of Computer Science & Engineering,"
+                + "<br>ShahJalal University of Science & Technology"
+                + "</html>";
+                
+                menuLabel.setText(creditsText);
             }
             else if(e.getActionCommand().equals("Manual"))
             {
-                menuLabel.setText("Manual");
+                String manualText = "<html>Manual Window</html>";
+                //menuLabel.setText(manualText);
+                ManualClass manualObject = new ManualClass();
+                JFrame manualFrame = manualObject.createManual();
+                manualFrame.setVisible(true);
+                    
             }
             else if(e.getActionCommand().equals("Help"))
             {
-                menuLabel.setText("Help");
+                //PianoFunctionality.goWebsite(menuLabel,"http://nowshad.scdnlab.com","Click here");
+                String helpText = "<html><b>Help Menu<b></html>";
+                //menuLabel.setText(helpText);
+            }
+            else{
+                String playingText = "<html><h2>Currently Playing Note</h2>"
+                + "<br><h3 style=\"padding-left:50;\">"+currentlyPlayingNote+"</h3></html>";
+                menuLabel.setText(playingText);
             }
         }
     
@@ -182,18 +237,36 @@ public class Menu extends JFrame implements ActionListener{
         		jb.setActionCommand(name);
         		jb.addActionListener(this);
                         jb.setFocusable(false);
+                        //jb.setRolloverIcon(null);
                         //jb.setOpaque(false);
                         //set button turn black when clicked
                         //jb.setPressedIcon(new ImageIcon("images/blackKey.png"));
     }
-    public void setCurrentlyPlayingLabel(String labelText){
-        this.currentlyPlayingLabel.setText(labelText);
-    }
-    public static void main(String args[]){
-        
-        new Menu();
-        
-    }
-
     
+
+    public void setCurrenttlyPlayingNote(String note) {
+        this.currentlyPlayingNote = note;
+        String playingText = "<html><h2>Currently Playing Note</h2>"
+                + "<br>"+note+"</html>";
+        try{
+            menuLabel.setText(playingText);
+        }catch(Exception e){
+            System.out.println("label overriding failed");
+        }
+        
+    }
+     public static void goWebsite(JButton website, final String url) {
+        //website.setText("<html> : <a href=\"\">"+text+"</a></html>");
+        website.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        website.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                    try {
+                            Desktop.getDesktop().browse(new URI(url));
+                    } catch (URISyntaxException | IOException ex) {
+                            //It looks like there's a problem
+                    }
+            }
+        });
+    }
 }

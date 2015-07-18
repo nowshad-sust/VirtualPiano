@@ -17,16 +17,20 @@
 
 package PianoPlain;
 
+import debug.*;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Insets;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.Box;
@@ -38,6 +42,7 @@ import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
+import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.text.BadLocationException;
@@ -63,7 +68,7 @@ public class PianoGUI extends JFrame implements ActionListener, KeyListener{
     //note to view the currently palying note
     private static JLabel currentlyPlayingLabel = new JLabel();
     public static JLabel testLabel;
-    Menu menuObj = new Menu();
+    public static Menu menuObj = new Menu();
     
     public static Map<String,JButton> buttonMap = new HashMap<String,JButton>();
     
@@ -141,56 +146,6 @@ public class PianoGUI extends JFrame implements ActionListener, KeyListener{
         //tabbed menu starts
         JPanel tabbedMenu = menuObj.createDifferentMenu();
         tabbedMenu.setSize(200, 100);
-        /*
-        //1st tab -> CurrentlyPlayingPanel
-        
-        JPanel CurrentlyPlayingPanel = new JPanel();
-        
-        CurrentlyPlayingPanel.setLayout(new BoxLayout(CurrentlyPlayingPanel, BoxLayout.Y_AXIS));
-        
-        CurrentlyPlayingPanel.setBackground(new Color(0,0,0,0));
-        
-        JLabel label1 = new JLabel();
-        currentlyPlayingLabel = new JLabel("<html><h2 style=\"margin-left:200;\">Nothing</h2></html>"); 
-        label1.setText("<html><h2 style=\"margin-left:100;\">Currently Playing Note</h2></html>");
-        
-        CurrentlyPlayingPanel.add(label1);
-        CurrentlyPlayingPanel.add(currentlyPlayingLabel);
-        
-        //2nd tab -> CreditsPanel
-        JPanel creditsPanel = new JPanel();
-        creditsPanel.setBackground(new Color(0,0,0,0));
-        JLabel creditsLabel = new JLabel();
-        //credits text
-        creditsLabel.setText("<html>Md. Al-amin Nowshad"
-                + "<br>Batch: 2012,"
-                + "<br>Dept. of Computer Science & Engineering,"
-                + "<br>ShahJalal University of Science & Technology"
-                + "<br>email: iamnowshad@gmail.com</html>");
-        
-        creditsPanel.add(creditsLabel);
-        
-        //3rd tab -> helpPanel
-        JPanel helpPanel = new JPanel();
-        helpPanel.setBackground(new Color(0,0,0,0));
-        JLabel helpLabel = new JLabel("<html><p>Watch the keymap to play</p></html>");
-        JLabel linkLabel = new JLabel();
-        PianoFunctionality.goWebsite(linkLabel,"http://nowshad.scdnlab.com","Click here");
-        helpPanel.add(helpLabel);
-        helpPanel.add(linkLabel);
-        
-        //adding tabs to main JTabbedPane
-        tabbedMenuPanel.addTab("Playing", CurrentlyPlayingPanel);
-        tabbedMenuPanel.addTab("Credits", creditsPanel);
-        tabbedMenuPanel.addTab("Help", helpPanel);
-        
-        
-        
-        //tabbed menu ends
-     */
-        
-        
-        
         
         //right Panel
         JPanel rightPanel = new JPanel();
@@ -223,7 +178,17 @@ public class PianoGUI extends JFrame implements ActionListener, KeyListener{
         
         frame.setVisible(true);
         frame.setResizable(false);
-        frame.setSize(900,400);
+        frame.pack();
+
+        // make the frame half the height and width
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int height = screenSize.height;
+        int width = screenSize.width;
+        frame.setSize(width/2, height/2);
+
+        // here's the part where i center the jframe on screen
+        frame.setLocationRelativeTo(null);
+        frame.setSize(900,420);
     }
     
     
@@ -245,9 +210,13 @@ public class PianoGUI extends JFrame implements ActionListener, KeyListener{
         for(int i=0;i<octave.length;++i){
             for(int j=0;j<notes.length;++j){
                 ImageIcon img = new ImageIcon("images/"+notes[j]+".png");
-                JButton jb = new JButton(img);
-
+                
                         name = notes[j]+octave[i];
+                        //trying to show name on the button
+                        //but not working
+                        JButton jb = new JButton(name,img);
+                        jb.setVerticalTextPosition(SwingConstants.BOTTOM);
+                        jb.setHorizontalTextPosition(SwingConstants.CENTER);
         		jb.setName(name);
                         buttonMap.put(name, jb);
                         jb.setBorderPainted(false);
@@ -417,8 +386,12 @@ public class PianoGUI extends JFrame implements ActionListener, KeyListener{
                                 System.out.println(key);
                                 //print the currently playing note
                                 setCurrentlyPlayingLabel(key);
+                                
                                 //trying to play the note
                                 player.play(key);
+                                
+                                
+                                
                             }catch(Exception e){
                                 System.out.println("Exception with "+ key);
                                 //retrying to play
@@ -466,8 +439,16 @@ public class PianoGUI extends JFrame implements ActionListener, KeyListener{
     }
     
     public static void setCurrentlyPlayingLabel(String labelText){
-        Menu menuObj2 = new Menu();
-        menuObj2.setCurrentlyPlayingLabel(labelText);
+        
+        //menuObj.setCurrenttlyPlayingNote(labelText);
+        String playingText = "<html><h3>Currently Playing Note</h3>"
+                + "<br><h4 style=\"padding-left:65;\">"+labelText+"</h4></html>";
+        try{
+            Menu.currentlyPlayingNote = labelText;
+            Menu.menuLabel.setText(playingText);
+        }catch(Exception e){
+            System.out.println("label overriding failed");
+        }
     }
     
     @Override
