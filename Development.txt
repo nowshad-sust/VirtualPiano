@@ -30,5 +30,5 @@ final planning
             extension:effects [just change the tune of notes]
         [nearly done, just beautify things]
     
-    add an application icon with pre-loader
+    splash screen added
     extension: recording option
