@@ -133,6 +133,7 @@ public class PianoGUI extends JFrame implements ActionListener, KeyListener{
         leftPanel.setBackground(new Color(0,0,0,65));
         JLabel leftLabel = new JLabel();
         leftLabel.setText("<html><h1>Virtual<br>Piano</h1></html>");
+        leftLabel.setForeground(new Color(0, 102, 255,1));
         leftPanel.add(leftLabel);
         
         
@@ -150,7 +151,7 @@ public class PianoGUI extends JFrame implements ActionListener, KeyListener{
         JPanel rightPanel = new JPanel();
         rightPanel.setBackground(new Color(0,0,0,65));
         JLabel rightLabel = new JLabel();
-        rightLabel.setText("<html><h1>Right<br>Panel</h1></html>");
+        rightLabel.setText("<html><h4>© 2014<br>Nowshad</h4></html>");
         
         
         //test label

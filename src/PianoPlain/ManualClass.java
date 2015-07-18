@@ -34,12 +34,18 @@ public class ManualClass {
         manualframe.setTitle("Manual");
         
         JPanel mainPanel = new JPanel();
-        JLabel testLabel = new JLabel("Maual Label");
+        JLabel testLabel = new JLabel();
+        String manualText = "<html>"
+                + "<br>under construction"
+                + "<br>keymap needed to be included"
+                + "<br>may be an image with the keymap"
+                + "</html>";
+        testLabel.setText(manualText);
         
         mainPanel.add(testLabel);
         mainPanel.setBackground(new Color(0,0,0,0));
                 
-        manualframe.setSize(500, 100);
+        manualframe.setSize(500, 300);
         manualframe.add(mainPanel);
         manualframe.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         

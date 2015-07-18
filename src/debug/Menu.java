@@ -187,7 +187,9 @@ public class Menu extends JFrame implements ActionListener{
         differentMenu.add(menuBar);
         differentMenu.add(menuPanel);
         
+        creditsButton.doClick();
         return differentMenu;
+       
     }
     //mouse event handler
 	public void actionPerformed(ActionEvent e)
@@ -203,7 +205,7 @@ public class Menu extends JFrame implements ActionListener{
                 String creditsText = "<html>Md. Al-amin Nowshad"
                 + "<br>Batch: 2012,"
                 + "<br>Dept. of Computer Science & Engineering,"
-                + "<br>ShahJalal University of Science & Technology"
+                + "<br>Shahjalal University of Science & Technology"
                 + "</html>";
                 
                 menuLabel.setText(creditsText);

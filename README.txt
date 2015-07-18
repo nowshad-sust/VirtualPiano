@@ -6,6 +6,6 @@ platform: Desktop
 State: Under construction
 
 Running the application
-1. run VirtualPiano.jar or build & run PianoGUI.java
+1. run VirtualPiano.jar or build & run PianoFunctionality.java
 2. Play with keyboard or mouse
 3. Have fun
