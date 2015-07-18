@@ -66,7 +66,7 @@ public class PianoGUI extends JFrame implements ActionListener, KeyListener{
     //note to view the currently palying note
     private static JLabel currentlyPlayingLabel = new JLabel();
     public static JLabel testLabel;
-    Menu menuObj = new Menu();
+    public static Menu menuObj = new Menu();
     
     public static Map<String,JButton> buttonMap = new HashMap<String,JButton>();
     
@@ -374,8 +374,12 @@ public class PianoGUI extends JFrame implements ActionListener, KeyListener{
                                 System.out.println(key);
                                 //print the currently playing note
                                 setCurrentlyPlayingLabel(key);
+                                
                                 //trying to play the note
                                 player.play(key);
+                                
+                                
+                                
                             }catch(Exception e){
                                 System.out.println("Exception with "+ key);
                                 //retrying to play
@@ -423,8 +427,16 @@ public class PianoGUI extends JFrame implements ActionListener, KeyListener{
     }
     
     public static void setCurrentlyPlayingLabel(String labelText){
-        Menu menuObj2 = new Menu();
-        menuObj2.setCurrentlyPlayingLabel(labelText);
+        
+        //menuObj.setCurrenttlyPlayingNote(labelText);
+        String playingText = "<html><h3>Currently Playing Note</h3>"
+                + "<br><h4 style=\"padding-left:65;\">"+labelText+"</h4></html>";
+        try{
+            Menu.currentlyPlayingNote = labelText;
+            Menu.menuLabel.setText(playingText);
+        }catch(Exception e){
+            System.out.println("label overriding failed");
+        }
     }
     
     @Override

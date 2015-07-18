@@ -15,6 +15,7 @@
  */
 package debug;
 
+import java.awt.Color;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -32,11 +33,12 @@ public class ManualClass {
         manualframe.setTitle("Manual");
         
         JPanel mainPanel = new JPanel();
-        JLabel testLabel = new JLabel("Test Label");
+        JLabel testLabel = new JLabel("Maual Label");
         
         mainPanel.add(testLabel);
-        
-        
+        mainPanel.setBackground(new Color(0,0,0,0));
+                
+        manualframe.setSize(500, 100);
         manualframe.add(mainPanel);
         manualframe.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         
