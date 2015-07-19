@@ -8,6 +8,7 @@ current state:
     only one unknown exception happens
     ok type GUI
     massive bug with the currently playing label
+    (hidden the bug with a black background)
 
 final planning
     adding a nice GUI
@@ -15,7 +16,9 @@ final planning
         buttons are made transparent
         functions are written in the comments
         just need to make images of the buttons
-    
+    [done for the white buttons, just vanishing the button
+    1 problem still: a black button appears without proper sizing]
+
     debug problems [1 found: still unknown reason [Ghost Reason]]
     
     add a menu
@@ -31,4 +34,4 @@ final planning
         [nearly done, just beautify things]
     
     splash screen added
-    extension: recording option
+    *extension: recording option
