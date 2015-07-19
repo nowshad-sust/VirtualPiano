@@ -139,12 +139,15 @@ public class Menu extends JFrame implements ActionListener{
         
     }
     */
+    
+    //function to create menu with four button like tabbed menu
     public JPanel createDifferentMenu(){
         
         JPanel differentMenu = new JPanel();
         differentMenu.setBackground(new Color(0,0,0,65));
         //differentMenu.setBackground(Color.black);
-        //differentMenu
+        
+        //Menu bar just four buttons
         JPanel menuBar = new JPanel();
         menuBar.setLayout(new GridLayout(1,4));
         
@@ -152,21 +155,21 @@ public class Menu extends JFrame implements ActionListener{
         JButton manualButton = new JButton("Manual");
         JButton creditsButton = new JButton("Credits");
         JButton helpButton = new JButton("Help");
+        //making the helpButton clickable
         goWebsite(helpButton, "http://nowshad.scdnlab.com");
         
+        //setting button design
         setButtonDesign(playingButton);
         setButtonDesign(manualButton);
         setButtonDesign(creditsButton);
         setButtonDesign(helpButton);
-        
-        
-        
-        
+        //adding buttons to menubar
         menuBar.add(playingButton);
         menuBar.add(manualButton);
         menuBar.add(creditsButton);
         menuBar.add(helpButton);
         
+        //menu contents display area
         JPanel menuPanel = new JPanel();
         menuPanel.setBackground(Color.black);
         
