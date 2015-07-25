@@ -28,6 +28,8 @@ final planning
         Menu[tabs]
             currently playing key[default tab]
                 show the note playing
+            Manual
+                opens in new independent window
             Credits
             Help
             extension:effects [just change the tune of notes]
