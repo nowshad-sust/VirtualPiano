@@ -32,6 +32,8 @@ import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -169,9 +171,11 @@ public class Menu extends JFrame implements ActionListener{
             }
             else if(e.getActionCommand().equals("Manual"))
             {
-                ManualClass manualObject = new ManualClass();
-                JFrame manualFrame = manualObject.createManual();
+                //ManualClass manualObject = new ManualClass();
+                JFrame manualFrame;
+                manualFrame = new Manual();
                 manualFrame.setVisible(true);
+                
                     
             }
             else if(e.getActionCommand().equals("Help"))

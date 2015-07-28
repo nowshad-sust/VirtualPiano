@@ -172,14 +172,10 @@ public class Menu extends JFrame implements ActionListener{
             }
             else if(e.getActionCommand().equals("Manual"))
             {
-                ManualClass manualObject = new ManualClass();
+                //ManualClass manualObject = new ManualClass();
                 JFrame manualFrame;
-                try {
-                    manualFrame = manualObject.createManual();
-                    manualFrame.setVisible(true);
-                } catch (IOException ex) {
-                    Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                manualFrame = new Manual();
+                manualFrame.setVisible(true);
                 
                     
             }
