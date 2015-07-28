@@ -107,11 +107,11 @@ public class Menu extends JFrame implements ActionListener{
         
         //menu contents display area
         JPanel menuPanel = new JPanel();
+        //menuPanel.setBackground(new Color(0,0,0,0));
         menuPanel.setBackground(Color.black);
 
         menuPanel.setLayout(new FlowLayout());
         
-        //menuLabel.setBackground(Color.BLACK);
         menuLabel.setForeground(new Color(242, 243, 244, 1));
         menuLabel.setSize(50, 50);
         menuPanel.add(menuLabel);

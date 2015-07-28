@@ -28,8 +28,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.Box;
@@ -40,16 +38,15 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
-import javax.swing.JTabbedPane;
 import javax.swing.SwingConstants;
-import javax.swing.UIManager;
-import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.text.BadLocationException;
 import org.jfugue.player.Player;
 
 /**
- *
- * @author nowshad
+ * <h1>The Main GUI of the Piano</h1>
+ * 
+ * @author  Md. Al-amin Nowshad
+ * @version 1.0
  */
 
 public class PianoGUI extends JFrame implements ActionListener, KeyListener{
@@ -67,11 +64,16 @@ public class PianoGUI extends JFrame implements ActionListener, KeyListener{
     //note to view the currently palying note
     private static JLabel currentlyPlayingLabel = new JLabel();
     public static JLabel testLabel;
+    //creating menu object to access Menu class components
     public static Menu menuObj = new Menu();
-    
+    //hashmap for button reference
     public static Map<String,JButton> buttonMap = new HashMap<String,JButton>();
     
-    //constructor
+    /**
+     * constructor that creates GUI
+     * 
+     * @throws BadLocationException 
+     */
     public PianoGUI() throws BadLocationException{
         //Main JFrame
         frame = new JFrame("VirtualPiano");
@@ -87,9 +89,7 @@ public class PianoGUI extends JFrame implements ActionListener, KeyListener{
         frame.setContentPane(new JLabel(new ImageIcon("images/background.jpg")));
         
         /*
-        look & feel doesn't work properly
-        makes piano playing jammed
-        & all static labels vanished
+        for Nimbus look & feel
         
         try {
         for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
@@ -137,12 +137,6 @@ public class PianoGUI extends JFrame implements ActionListener, KeyListener{
         leftPanel.add(leftLabel);
         
         
-        
-        
-        //massive GUI bug that gets created when any button is pressed
-        //or mouse clicked
-        
-        
         //tabbed menu starts
         JPanel tabbedMenu = menuObj.createDifferentMenu();
         tabbedMenu.setSize(200, 100);
@@ -177,7 +171,7 @@ public class PianoGUI extends JFrame implements ActionListener, KeyListener{
         mainPanel.add(pianoKeyPanel);
         
         frame.setVisible(true);
-        frame.setResizable(false);
+        //frame.setResizable(false);
         frame.pack();
 
         // make the frame half the height and width
@@ -188,22 +182,26 @@ public class PianoGUI extends JFrame implements ActionListener, KeyListener{
 
         // here's the part where i center the jframe on screen
         frame.setLocationRelativeTo(null);
-        frame.setSize(900,420);
+        frame.setSize(880,450);
     }
     
     
     
     
     
-    //function to generate the keyboard
+    /**
+     * <h1>function to generate the keyboard</h1>
+     * 
+     * @return keyboard the keys drawn for the piano
+     */
     public JLayeredPane makeKeyboard(){
         
         String name = "";
-	int x = 55;
+	int x = 75;
         int y = 20;
         
         JLayeredPane keyboard = new JLayeredPane();
-        keyboard.setPreferredSize(new Dimension(900,162));
+        keyboard.setPreferredSize(new Dimension(830,180));
         keyboard.add(Box.createRigidArea(new Dimension(x, 0)));
         keyboard.setFocusable(false);
         //adding the white keys
@@ -218,6 +216,7 @@ public class PianoGUI extends JFrame implements ActionListener, KeyListener{
                         jb.setVerticalTextPosition(SwingConstants.BOTTOM);
                         jb.setHorizontalTextPosition(SwingConstants.CENTER);
         		jb.setName(name);
+                        //storing the button reference
                         buttonMap.put(name, jb);
                         jb.setBorderPainted(false);
                         jb.setBorder(null);
@@ -225,25 +224,18 @@ public class PianoGUI extends JFrame implements ActionListener, KeyListener{
                         jb.setContentAreaFilled(false);
         		jb.setActionCommand(name);
         		jb.addActionListener(this);
-                        //test keyboard input
-                        //jb.setMnemonic(KeyEvent.VK_Q);
         		jb.setBounds(x,y,35,207);
         		jb.setFocusable(false);
                         jb.setOpaque(false);
                         jb.setContentAreaFilled(false);
                         jb.setBorderPainted(false);
                         //set button turn black when clicked
-                        jb.setPressedIcon(new ImageIcon("images/blackKey.png"));
-                        /* used for pressed & released effect
-                        button.setIcon(myIcon1);
-                        button.setRolloverIcon(myIcon2);
-                        button.setPressedIcon(myIcon3);
-                        button.setDisabledIcon(myIcon4);
-                        */
+                        jb.setPressedIcon(new ImageIcon("images/blackKeyPressed.png"));
+                      
                         keyboard.add(jb,new Integer(1));
         		keyboard.add(Box.createRigidArea(new Dimension(2, 0)));
                         
-        		x += 37;
+        		x += 33;
             }
         }
         
@@ -262,13 +254,13 @@ public class PianoGUI extends JFrame implements ActionListener, KeyListener{
     		jb0.setName(name);
     		jb0.setActionCommand(name);
     		jb0.addActionListener(this);
+                jb0.setPressedIcon(new ImageIcon("images/blackKeyPressed.png"));
                 jb0.setBorderPainted(false);
                         jb0.setBorder(null);
                         jb0.setMargin(new Insets(0, 0, 0, 0));
                         jb0.setContentAreaFilled(false);
         		jb0.setActionCommand(name);
         		jb0.addActionListener(this);
-        		jb0.setBounds(x,y,35,207);
         		jb0.setFocusable(false);
                         jb0.setOpaque(false);
                         jb0.setContentAreaFilled(false);
@@ -281,13 +273,13 @@ public class PianoGUI extends JFrame implements ActionListener, KeyListener{
     		jb1.setName(name);
     		jb1.setActionCommand(name);
     		jb1.addActionListener(this);
+                jb1.setPressedIcon(new ImageIcon("images/blackKeyPressed.png"));
     		jb1.setBorderPainted(false);
                         jb1.setBorder(null);
                         jb1.setMargin(new Insets(0, 0, 0, 0));
                         jb1.setContentAreaFilled(false);
         		jb1.setActionCommand(name);
         		jb1.addActionListener(this);
-        		jb1.setBounds(x,y,35,207);
         		jb1.setFocusable(false);
                         jb1.setOpaque(false);
                         jb1.setContentAreaFilled(false);
@@ -299,13 +291,13 @@ public class PianoGUI extends JFrame implements ActionListener, KeyListener{
     		jb2.setName(name);
     		jb2.setActionCommand(name);
     		jb2.addActionListener(this);
+                jb2.setPressedIcon(new ImageIcon("images/blackKeyPressed.png"));
     		jb2.setBorderPainted(false);
                         jb2.setBorder(null);
                         jb2.setMargin(new Insets(0, 0, 0, 0));
                         jb2.setContentAreaFilled(false);
         		jb2.setActionCommand(name);
         		jb2.addActionListener(this);
-        		jb2.setBounds(x,y,35,207);
         		jb2.setFocusable(false);
                         jb2.setOpaque(false);
                         jb2.setContentAreaFilled(false);
@@ -317,13 +309,13 @@ public class PianoGUI extends JFrame implements ActionListener, KeyListener{
     		jb3.setName(name);
     		jb3.setActionCommand(name);
     		jb3.addActionListener(this);
+                jb3.setPressedIcon(new ImageIcon("images/blackKeyPressed.png"));
     		jb3.setBorderPainted(false);
                         jb3.setBorder(null);
                         jb3.setMargin(new Insets(0, 0, 0, 0));
                         jb3.setContentAreaFilled(false);
         		jb3.setActionCommand(name);
         		jb3.addActionListener(this);
-        		jb3.setBounds(x,y,35,207);
         		jb3.setFocusable(false);
                         jb3.setOpaque(false);
                         jb3.setContentAreaFilled(false);
@@ -335,32 +327,32 @@ public class PianoGUI extends JFrame implements ActionListener, KeyListener{
     		jb4.setName(name);
     		jb4.setActionCommand(name);
     		jb4.addActionListener(this);
+                jb4.setPressedIcon(new ImageIcon("images/blackKeyPressed.png"));
     		jb4.setBorderPainted(false);
                         jb4.setBorder(null);
                         jb4.setMargin(new Insets(0, 0, 0, 0));
                         jb4.setContentAreaFilled(false);
         		jb4.setActionCommand(name);
         		jb4.addActionListener(this);
-        		jb4.setBounds(x,y,35,207);
         		jb4.setFocusable(false);
                         jb4.setOpaque(false);
                         jb4.setContentAreaFilled(false);
                         jb4.setBorderPainted(false);
-                        
+                
     		// Place the 5 keys 
-    		jb0.setBounds(77+(260*i),y-1,25,115);
+    		jb0.setBounds(93+(231*i),y-1,25,126);
     		keyboard.add(jb0,new Integer(2));
     		
-    		jb1.setBounds(115+(260*i),y-1,25,115);
+    		jb1.setBounds(130+(231*i),y-1,30,126);
     		keyboard.add(jb1,new Integer(2));
     		
-    		jb2.setBounds(188+(260*i),y-1,25,115);
+    		jb2.setBounds(192+(231*i),y-1,25,126);
     		keyboard.add(jb2,new Integer(2));
         	
-    		jb3.setBounds(226+(260*i),y-1,25,115);
+    		jb3.setBounds(227+(231*i),y-1,28,126);
     		keyboard.add(jb3,new Integer(2));
    
-    		jb4.setBounds(264+(260*i),y-1,25,115);
+    		jb4.setBounds(264+(231*i),y-1,25,126);
     		keyboard.add(jb4,new Integer(2));
         }
         
@@ -370,7 +362,10 @@ public class PianoGUI extends JFrame implements ActionListener, KeyListener{
     }
       
 
-    //mouse event handler
+    /**
+     * Mouse event handler
+     * @param e 
+     */
     @Override
 	public void actionPerformed(ActionEvent e) {
 		
@@ -382,10 +377,10 @@ public class PianoGUI extends JFrame implements ActionListener, KeyListener{
                             // Cast the object to a JButton
                             final JButton jb = (JButton)obj;
                             key = jb.getName();
+                            //System.out.println(key);
+                            //print the currently playing note
+                            setCurrentlyPlayingLabel(key);
                             try{
-                                System.out.println(key);
-                                //print the currently playing note
-                                setCurrentlyPlayingLabel(key);
                                 
                                 //trying to play the note
                                 player.play(key);
@@ -405,12 +400,23 @@ public class PianoGUI extends JFrame implements ActionListener, KeyListener{
         
         
         
-
+    /**
+     * method that does nothing
+     * @param e 
+     */
     @Override
     public void keyTyped(KeyEvent e) {
         
     }
-
+    
+    /**
+     * method to handle key pressed events
+     * 
+     * gets the note to play from the PianoFunctionality
+     * class. Then makes the corresponding JButton clicked.
+     * 
+     * @param e key event
+     */
     @Override
     public void keyPressed(KeyEvent e) {
         //find the button with the associated keyPressed
@@ -438,6 +444,13 @@ public class PianoGUI extends JFrame implements ActionListener, KeyListener{
         
     }
     
+    /**
+     * function to set the text of the currently playing label
+     * 
+     * sets the text to the note that is playing now
+     * 
+     * @param labelText 
+     */
     public static void setCurrentlyPlayingLabel(String labelText){
         
         //menuObj.setCurrenttlyPlayingNote(labelText);
@@ -451,6 +464,10 @@ public class PianoGUI extends JFrame implements ActionListener, KeyListener{
         }
     }
     
+    /**
+     * does nothing
+     * @param e 
+     */
     @Override
     public void keyReleased(KeyEvent e) {
         
