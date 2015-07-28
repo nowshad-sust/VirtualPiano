@@ -18,6 +18,8 @@
 
 package debug;
 
+import backup.*;
+import debug.*;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Desktop;
@@ -35,15 +37,14 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-/**
- *
- * @author nowshad
- */
 
 /**
  * Class to create the menu shown at the top Panel of the main GUI
  * 
+ * @author  Md. Al-amin Nowshad
+ * @version 1.0
  */
+
 public class Menu extends JFrame implements ActionListener{
     //declaring static labels & variable
     public static JLabel currentlyPlayingLabel  = new JLabel();
@@ -214,7 +215,6 @@ public class Menu extends JFrame implements ActionListener{
      * @param url address of the website
      */
      public static void goWebsite(JButton website, final String url) {
-        //website.setText("<html> : <a href=\"\">"+text+"</a></html>");
         website.setCursor(new Cursor(Cursor.HAND_CURSOR));
         website.addMouseListener(new MouseAdapter() {
             @Override

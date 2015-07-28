@@ -16,26 +16,23 @@
 
 package debug;
 
-import java.awt.Cursor;
-import java.awt.Desktop;
+import backup.*;
 import java.awt.event.KeyEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JLabel;
 import javax.swing.SwingUtilities;
 import javax.swing.text.BadLocationException;
 
 /**
- *
- * @author nowshad
+ * <h1>Main functional class</h1>
+ * this class makes the piano GUI in PianoGUi class
+ * functional. Running the whole project, determining
+ * which sound to play - are done by this class 
+ * 
+ * @author  Md. Al-amin Nowshad
+ * @version 1.0
  */
 
-//brain of PianoGUI class
 public class PianoFunctionality {
     
     /**
@@ -45,12 +42,17 @@ public class PianoFunctionality {
      */
     public PianoFunctionality(){
         
-    }
-   
-        
-    //method to determine which note to play
-    //with corresponding key event
-    //incomplete: black keys still left
+    } 
+    /**
+     * <h1>method to determine which note to play</h1>
+     * just returns a name string of the note to play
+     * with corresponding key event.
+     * 
+     * @param e Key Event
+     * @return noteToPlay a string that contains the name of
+     *          of the note to play
+     */
+    
     public static String generateNotes(KeyEvent e){
         char keyPressed = e.getKeyChar();
         System.out.println("Pressed: "+keyPressed);
@@ -123,13 +125,18 @@ public class PianoFunctionality {
             
         }
         if(noteToPlay!=null){
-            //playSound(noteToPlay);
             return noteToPlay;
         }
         return null;
         
         
     }
+    /**
+     * <h1>Main Function</h1>
+     * creates the GUI object & makes it alive.
+     * 
+     * @param args 
+     */
      public static void main(String args[]) {
          SwingUtilities.invokeLater(new Runnable() {
             @Override
