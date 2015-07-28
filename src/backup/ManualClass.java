@@ -17,6 +17,11 @@ package backup;
 
 import debug.*;
 import java.awt.Color;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -29,19 +34,20 @@ public class ManualClass {
     public ManualClass(){
         //createManual();
     }
-    public JFrame createManual(){
+    public JFrame createManual() throws IOException{
         JFrame manualframe = new JFrame();
         manualframe.setTitle("Manual");
         
         JPanel mainPanel = new JPanel();
+        
         JLabel testLabel = new JLabel();
         String manualText = "<html>"
-                + "<br>under construction"
-                + "<br>keymap needed to be included"
-                + "<br>may be an image with the keymap"
+                + "<br>Follow the Key Map here"
                 + "</html>";
         testLabel.setText(manualText);
-        
+        BufferedImage myPicture = ImageIO.read(new File("images/keyMap.png"));
+        JLabel picLabel = new JLabel(new ImageIcon(myPicture));
+        mainPanel.add(picLabel);
         mainPanel.add(testLabel);
         mainPanel.setBackground(new Color(0,0,0,0));
                 
@@ -50,6 +56,12 @@ public class ManualClass {
         manualframe.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         
         return manualframe;
+    }
+    
+    public static void main(String srgs[]) throws IOException{
+        ManualClass obj = new ManualClass();
+        JFrame frame = obj.createManual();
+        frame.setVisible(true);
     }
     
 }
