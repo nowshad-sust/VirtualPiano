@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package PianoPlain;
+package backup;
 
 import debug.*;
 import java.awt.Cursor;
@@ -39,26 +39,15 @@ import javax.swing.text.BadLocationException;
 //brain of PianoGUI class
 public class PianoFunctionality {
     
-    //public static PianoGUI PianoGUIObject;
-    
+    /**
+     * The default constructor for this class
+     * 
+     * Does Nothing
+     */
     public PianoFunctionality(){
         
     }
-    
-    public static void goWebsite(JLabel website, final String url, String text) {
-        website.setText("<html> : <a href=\"\">"+text+"</a></html>");
-        website.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        website.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                    try {
-                            Desktop.getDesktop().browse(new URI(url));
-                    } catch (URISyntaxException | IOException ex) {
-                            //It looks like there's a problem
-                    }
-            }
-        });
-    }
+   
         
     //method to determine which note to play
     //with corresponding key event
