@@ -77,7 +77,7 @@ public class Manual extends javax.swing.JFrame {
         jLabel3.setText("Please follow the key map given below to easily understand keyboard sync with the piano");
 
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setIcon(new javax.swing.ImageIcon("H:\\VirtualPiano\\images\\keyMap.png")); // NOI18N
+        jLabel4.setIcon(new javax.swing.ImageIcon("images\\keyMap.png")); // NOI18N
         jLabel4.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jLabel4.setMaximumSize(new java.awt.Dimension(600, 218));
         jLabel4.setMinimumSize(new java.awt.Dimension(500, 218));
