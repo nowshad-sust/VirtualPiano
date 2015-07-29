@@ -16,10 +16,8 @@
 
 
 
-package debug;
+package pianofinal;
 
-import backup.*;
-import debug.*;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Desktop;
@@ -92,7 +90,7 @@ public class Menu extends JFrame implements ActionListener{
         JButton playingButton = new JButton("Playing");
         JButton manualButton = new JButton("Manual");
         JButton creditsButton = new JButton("Credits");
-        JButton helpButton = new JButton("Help");
+        JButton helpButton = new JButton("Contact");
         //making the helpButton clickable
         goWebsite(helpButton, "http://nowshad.scdnlab.com");
         
@@ -148,7 +146,7 @@ public class Menu extends JFrame implements ActionListener{
      *  </dl> 
      * 
      * 
-     * @see ManualClass
+     * @see Manual
      * @param e just the action event which was not used
      */
 	public void actionPerformed(ActionEvent e)

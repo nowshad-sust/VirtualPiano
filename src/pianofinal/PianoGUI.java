@@ -15,9 +15,8 @@
  */
 
 
-package backup;
+package pianofinal;
 
-import debug.*;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
@@ -73,7 +72,7 @@ public class PianoGUI extends JFrame implements ActionListener, KeyListener{
     /**
      * constructor that creates GUI
      * 
-     * @throws BadLocationException 
+     * @throws BadLocationException if location not found
      */
     public PianoGUI() throws BadLocationException{
         //Main JFrame
@@ -172,7 +171,7 @@ public class PianoGUI extends JFrame implements ActionListener, KeyListener{
         mainPanel.add(pianoKeyPanel);
         
         frame.setVisible(true);
-        //frame.setResizable(false);
+        frame.setResizable(false);
         frame.pack();
 
         // make the frame half the height and width
@@ -365,7 +364,7 @@ public class PianoGUI extends JFrame implements ActionListener, KeyListener{
 
     /**
      * Mouse event handler
-     * @param e 
+     * @param e action event
      */
     @Override
 	public void actionPerformed(ActionEvent e) {
@@ -403,7 +402,7 @@ public class PianoGUI extends JFrame implements ActionListener, KeyListener{
         
     /**
      * method that does nothing
-     * @param e 
+     * @param e key event
      */
     @Override
     public void keyTyped(KeyEvent e) {
@@ -450,7 +449,7 @@ public class PianoGUI extends JFrame implements ActionListener, KeyListener{
      * 
      * sets the text to the note that is playing now
      * 
-     * @param labelText 
+     * @param labelText the label that shows the currently playing note
      */
     public static void setCurrentlyPlayingLabel(String labelText){
         
@@ -467,7 +466,7 @@ public class PianoGUI extends JFrame implements ActionListener, KeyListener{
     
     /**
      * does nothing
-     * @param e 
+     * @param e key event
      */
     @Override
     public void keyReleased(KeyEvent e) {

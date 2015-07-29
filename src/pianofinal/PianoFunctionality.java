@@ -14,10 +14,8 @@
  * limitations under the License.
  */
 
-package backup;
+package pianofinal;
 
-import debug.*;
-import backup.*;
 import java.awt.event.KeyEvent;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -180,9 +178,9 @@ public class PianoFunctionality {
     }
     /**
      * <h1>Main Function</h1>
-     * creates the GUI object & makes it alive.
+     * creates the GUI object and makes it alive.
      * 
-     * @param args 
+     * @param args for command line arguments
      */
      public static void main(String args[]) {
          SwingUtilities.invokeLater(new Runnable() {
