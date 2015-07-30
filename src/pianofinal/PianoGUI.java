@@ -305,7 +305,7 @@ public class PianoGUI extends JFrame implements ActionListener, KeyListener{
     		
                 JButton jb3 = new JButton(img);
     		name = sharps[3]+octave[i];
-                buttonMap.put(name, jb2);
+                buttonMap.put(name, jb3);
     		jb3.setName(name);
     		jb3.setActionCommand(name);
     		jb3.addActionListener(this);
