@@ -69,7 +69,7 @@ public class Manual extends javax.swing.JFrame {
         jLabel2.setBackground(new java.awt.Color(204, 255, 204));
         jLabel2.setForeground(new java.awt.Color(102, 102, 102));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("An user guide to make your experince easier");
+        jLabel2.setText("An user guide to make your experience easier");
         jLabel2.setOpaque(true);
 
         jLabel3.setForeground(new java.awt.Color(51, 51, 51));
