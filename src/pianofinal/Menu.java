@@ -154,7 +154,7 @@ public class Menu extends JFrame implements ActionListener{
             if(e.getActionCommand().equals("Playing"))
             {
                 String playingText = "<html><h3>Currently Playing Note</h3>"
-                + "<br><h4 style=\"padding-left:50;\">"+currentlyPlayingNote+"</h4></html>";
+                + "<br><h4 style=\"padding-left:60;\">"+currentlyPlayingNote+"</h4></html>";
                 menuLabel.setText(playingText);
             }
             else if(e.getActionCommand().equals("Credits"))
