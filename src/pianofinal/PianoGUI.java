@@ -54,7 +54,7 @@ public class PianoGUI extends JFrame implements ActionListener, KeyListener{
     private JFrame frame;
     //key notes to repeat
     private String[] notes = {"C","D","E","F","G","A","B"};
-    //dhsrp notes
+    //sharp notes
     private String[] sharps = {"C#","D#","F#","G#","A#"};
     //octaves : primarily 3 octaves used
     private String[] octave = {"4","5","6"};
@@ -385,8 +385,6 @@ public class PianoGUI extends JFrame implements ActionListener, KeyListener{
                                 //trying to play the note
                                 player.play(key);
                                 
-                                
-                                
                             }catch(Exception e){
                                 System.out.println("Exception with "+ key);
                                 //retrying to play
@@ -395,7 +393,7 @@ public class PianoGUI extends JFrame implements ActionListener, KeyListener{
                             
                             }
 		         };
-		 	(new Thread(playNotes)).start();
+            (new Thread(playNotes)).start();
                     }
         
         

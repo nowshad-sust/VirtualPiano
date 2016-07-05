@@ -92,7 +92,7 @@ public class Menu extends JFrame implements ActionListener{
         JButton creditsButton = new JButton("Credits");
         JButton helpButton = new JButton("Contact");
         //making the helpButton clickable
-        goWebsite(helpButton, "http://nowshad.scdnlab.com");
+        goWebsite(helpButton, "http://nowshad.iit.space");
         
         //setting button design
         setButtonDesign(playingButton);

@@ -53,14 +53,18 @@ public class PianoFunctionality {
      */
     
     public static String generateNotes(KeyEvent e){
+        
+        //getting the key pressed
         char keyPressed = e.getKeyChar();
-        //System.out.println("Pressed: "+keyPressed);
+        
         String noteToPlay = null;
+        
+        //now based on the key pressed
+        //convert it into corresponding note string
         switch(keyPressed){
             //white keys
             case 'z':
-                noteToPlay="C4";
-                
+                noteToPlay="C4";     
                 break;
             case 'x':
                 noteToPlay=("D4");
@@ -191,6 +195,7 @@ public class PianoFunctionality {
                 } catch (BadLocationException ex) {
                     Logger.getLogger(PianoFunctionality.class.getName()).log(Level.SEVERE, null, ex);
                 }
+                //making the key functionality alive
                 PianoFunctionality pianoFunctionality = new PianoFunctionality();
             }
         });
