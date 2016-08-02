@@ -7,7 +7,7 @@ playing piano with keyboard & mouse
 **platform**: Desktop, JAVA
 
 > Running the application
-> 1. run VirtualPiano.jar
-> 2. Play with keyboard or mouse
-> 3. click on the manual button for help
-> 4. Have fun
+> + run VirtualPiano.jar
+> + Play with keyboard or mouse
+> + click on the manual button for help
+> + Have fun
